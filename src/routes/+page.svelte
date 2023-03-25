@@ -1,11 +1,31 @@
 <script lang="ts">
   import { fade } from "svelte/transition";
+  import type { PageData } from "./$types";
+
+  export let data: PageData;
+
+  const columns = data.startPageCollection.startPageGallery;
+  console.log(data);
 </script>
 
 <div class="image-gallery" in:fade>
-  <div class="column">
+  {#each columns as column}
+    <div class="column">
+      {#each column.images as image}
+        <div class="image-item">
+          <img src={image.url} alt="" />
+        </div>
+      {/each}
+    </div>
+  {/each}
+</div>
+
+<!-- <div class="column">
     <div class="image-item">
-      <img src="https://source.unsplash.com/VWcPlbHglYc" alt="" />
+      <img
+        src={data.startPageCollection.startPageGallery[0].images[0].url}
+        alt=""
+      />
     </div>
     <div class="image-item">
       <img src="https://source.unsplash.com/e6FMMambeO4" alt="" />
@@ -44,8 +64,7 @@
       <img src="https://source.unsplash.com/IdNOTjPeHrE" alt="" />
     </div>
   </div>
-</div>
-
+</div> -->
 <style>
   .image-gallery {
     /* Mobile first */
@@ -58,6 +77,7 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
+    width: 33%;
   }
 
   .image-item img {

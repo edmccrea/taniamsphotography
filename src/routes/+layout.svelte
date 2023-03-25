@@ -1,15 +1,27 @@
 <script lang="ts">
+  import { onMount } from "svelte";
   import "../app.css";
   import Nav from "../lib/components/Nav.svelte";
+
+  let showTitle = true;
+  onMount(() => {
+    setTimeout(() => {
+      showTitle = false;
+    }, 2000);
+  });
 </script>
 
-<aside>
-  <Nav />
-</aside>
+{#if showTitle}
+  <h1>Tania McCrea Steele</h1>
+{:else}
+  <aside>
+    <Nav />
+  </aside>
 
-<main>
-  <slot />
-</main>
+  <main>
+    <slot />
+  </main>
+{/if}
 
 <style>
   @media (min-width: 768px) {
