@@ -14,8 +14,28 @@
     <li>
       <a href="/about">About</a>
     </li>
-    <li class="seasons-dropdown" on:click={() => (seasonsOpen = !seasonsOpen)}>
-      Seasons
+    <li
+      class="seasons-dropdown"
+      on:click={() => (seasonsOpen = !seasonsOpen)}
+      on:keyup={() => (seasonsOpen = !seasonsOpen)}
+    >
+      Seasons <svg
+        class:open={seasonsOpen}
+        class="seasons-arrow"
+        width="18"
+        height="18"
+        viewBox="0 0 24 24"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M19 9L12 16L5 9"
+          stroke="#4b5563"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </svg>
     </li>
     {#if seasonsOpen}
       <ul class="seasons-list" transition:slide|local>
@@ -65,13 +85,42 @@
   }
 
   li {
-    margin-bottom: 22px;
     font-size: 14px;
     color: var(--color-gray-600);
+    width: fit-content;
+    display: flex;
+    align-items: center;
+  }
+
+  a {
+    margin-bottom: 22px;
+  }
+
+  a:after {
+    transition: all ease-in-out 300ms;
+    background: none repeat scroll 0 0 var(--color-gray-600);
+    content: "";
+    display: block;
+    height: 1px;
+    width: 0;
+  }
+
+  a:hover:after {
+    width: 100%;
+  }
+
+  .seasons-arrow {
+    margin-left: 8px;
+    transition: all ease-in-out 200ms;
+  }
+
+  .seasons-arrow.open {
+    transform: rotate(180deg);
   }
 
   .seasons-dropdown {
     cursor: pointer;
+    margin-bottom: 22px;
   }
 
   .seasons-list {
