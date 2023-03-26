@@ -24,9 +24,8 @@
   .about-wrapper {
     display: flex;
     gap: 20px;
-    margin: 0 auto;
+    margin: 3rem auto 0;
     width: 75%;
-    margin-top: 3rem;
   }
 
   .about-content {
@@ -37,6 +36,7 @@
     font-weight: 700;
     font-size: 2rem;
     margin-bottom: 1rem;
+    color: var(--color-gray-700);
   }
 
   content {
