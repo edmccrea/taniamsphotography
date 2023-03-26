@@ -8,7 +8,7 @@
 </script>
 
 <nav>
-  <a class="logo" href="/">Tania</a>
+  <a class="logo" href="/">Tania <br /> McCrea Steele <br /> Photography</a>
 
   <ul>
     <li>
@@ -54,7 +54,10 @@
       <a href="/blog">Blog</a>
     </li>
     <li>
-      <a href="/shop">Shop</a>
+      <a
+        href="https://www.etsy.com/uk/shop/TaniaMcCreaSteele?fbclid=IwAR28D03u4blB0DNj-Kr15L6__u1AtRgMku1Y_3Lbrfv4KilN0joIljymy44"
+        target="_blank">Shop</a
+      >
     </li>
     <li>
       <a href="/contact">Contact</a>
