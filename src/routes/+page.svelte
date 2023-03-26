@@ -3,9 +3,9 @@
   import type { PageData } from "./$types";
 
   export let data: PageData;
+  console.log(data);
 
   const columns = data.startPageCollection.startPageGallery;
-  console.log(data);
 </script>
 
 <div class="image-gallery" in:fade>
@@ -20,54 +20,8 @@
   {/each}
 </div>
 
-<!-- <div class="column">
-    <div class="image-item">
-      <img
-        src={data.startPageCollection.startPageGallery[0].images[0].url}
-        alt=""
-      />
-    </div>
-    <div class="image-item">
-      <img src="https://source.unsplash.com/e6FMMambeO4" alt="" />
-    </div>
-    <div class="image-item">
-      <img src="https://source.unsplash.com/klCiPmzUw0Y" alt="" />
-    </div>
-  </div>
-
-  <div class="column" in:fade>
-    <div class="image-item">
-      <img src="https://source.unsplash.com/O0N9MF--hK4" alt="" />
-    </div>
-    <div class="image-item">
-      <img src="https://source.unsplash.com/FV3GConVSss" alt="" />
-    </div>
-    <div class="image-item">
-      <img src="https://source.unsplash.com/0ESjL-Nw22Y" alt="" />
-    </div>
-    <div class="image-item">
-      <img src="https://source.unsplash.com/KTVn62x6fFw" alt="" />
-    </div>
-  </div>
-
-  <div class="column" in:fade>
-    <div class="image-item">
-      <img src="https://source.unsplash.com/VSeVhmW4_JQ" alt="" />
-    </div>
-    <div class="image-item">
-      <img src="https://source.unsplash.com/07aFaTf24Kg" alt="" />
-    </div>
-    <div class="image-item">
-      <img src="https://source.unsplash.com/DqyYTM7pR2o" alt="" />
-    </div>
-    <div class="image-item">
-      <img src="https://source.unsplash.com/IdNOTjPeHrE" alt="" />
-    </div>
-  </div>
-</div> -->
 <style>
   .image-gallery {
-    /* Mobile first */
     display: flex;
     flex-direction: column;
     gap: 10px;
