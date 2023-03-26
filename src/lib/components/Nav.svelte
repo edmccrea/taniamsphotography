@@ -2,6 +2,9 @@
   import { slide } from "svelte/transition";
   import Footer from "./Footer.svelte";
   let seasonsOpen = false;
+
+  export let customSectionTitle: string;
+  export let customPages: string[];
 </script>
 
 <nav>
@@ -19,7 +22,8 @@
       on:click={() => (seasonsOpen = !seasonsOpen)}
       on:keyup={() => (seasonsOpen = !seasonsOpen)}
     >
-      Seasons <svg
+      {customSectionTitle}
+      <svg
         class:open={seasonsOpen}
         class="seasons-arrow"
         width="18"
@@ -39,18 +43,11 @@
     </li>
     {#if seasonsOpen}
       <ul class="seasons-list" transition:slide|local>
-        <li>
-          <a href="/seasons/spring">Spring</a>
-        </li>
-        <li>
-          <a href="/seasons/summer">Summer</a>
-        </li>
-        <li>
-          <a href="/seasons/autumn">Autumn</a>
-        </li>
-        <li>
-          <a href="/seasons/winter">Winter</a>
-        </li>
+        {#each customPages as page}
+          <li>
+            <a href={page.toLowerCase()}>{page}</a>
+          </li>
+        {/each}
       </ul>
     {/if}
     <li>
@@ -96,7 +93,7 @@
     margin-bottom: 22px;
   }
 
-  a:after {
+  ul a:after {
     transition: all ease-in-out 300ms;
     background: none repeat scroll 0 0 var(--color-gray-600);
     content: "";

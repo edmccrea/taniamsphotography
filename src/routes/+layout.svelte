@@ -1,7 +1,16 @@
 <script lang="ts">
   import { onMount } from "svelte";
+  import type { PageData } from "./$types";
+
   import "../app.css";
   import Nav from "../lib/components/Nav.svelte";
+
+  export let data: PageData;
+
+  const customSectionTitle = data.galleryCollection.title;
+  const customPages = data.galleryCollection.gallery.map(
+    (gallery) => gallery.title
+  );
 
   // let showTitle = true;
   // onMount(() => {
@@ -15,7 +24,7 @@
   <h1>Tania McCrea Steele</h1>
 {:else} -->
 <aside>
-  <Nav />
+  <Nav {customSectionTitle} {customPages} />
 </aside>
 
 <main>

@@ -25,6 +25,17 @@ const query = gql`
         url
       }
     }
+
+    galleryCollection {
+      title
+      gallery {
+        title
+        images {
+          basename
+          url
+        }
+      }
+    }
   }
 `;
 
