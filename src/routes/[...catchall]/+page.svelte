@@ -2,6 +2,9 @@
   import { fade } from "svelte/transition";
   import type { PageData } from "./$types";
 
+  import HorizontalGrid from "$lib/components/HorizontalGrid.svelte";
+  import VerticalGrid from "$lib/components/VerticalGrid.svelte";
+
   export let data: PageData;
 
   $: pageType = data.pageType;
@@ -12,6 +15,24 @@
 
 {#key pageType}
   <div class="gallery-wrapper" in:fade>
-    <h1>{galleryData.title}</h1>
+    <h1>{galleryData.title}.</h1>
+
+    {#if galleryData.displayType === "horizontal"}
+      <HorizontalGrid images={galleryData.images} />
+    {:else if galleryData.displayType === "vertical"}
+      <VerticalGrid images={galleryData.images} />
+    {/if}
   </div>
 {/key}
+
+<style>
+  .gallery-wrapper {
+    margin-top: 3rem;
+  }
+
+  h1 {
+    font-size: 2rem;
+    color: var(--color-gray-700);
+    margin-bottom: 1rem;
+  }
+</style>
