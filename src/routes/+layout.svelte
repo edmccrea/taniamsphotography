@@ -3,26 +3,26 @@
   import "../app.css";
   import Nav from "../lib/components/Nav.svelte";
 
-  let showTitle = true;
-  onMount(() => {
-    setTimeout(() => {
-      showTitle = false;
-    }, 2000);
-  });
+  // let showTitle = true;
+  // onMount(() => {
+  //   setTimeout(() => {
+  //     showTitle = false;
+  //   }, 2000);
+  // });
 </script>
 
-{#if showTitle}
+<!-- {#if showTitle}
   <h1>Tania McCrea Steele</h1>
-{:else}
-  <aside>
-    <Nav />
-  </aside>
+{:else} -->
+<aside>
+  <Nav />
+</aside>
 
-  <main>
-    <slot />
-  </main>
-{/if}
+<main>
+  <slot />
+</main>
 
+<!-- {/if} -->
 <style>
   @media (min-width: 768px) {
     :global(body) {

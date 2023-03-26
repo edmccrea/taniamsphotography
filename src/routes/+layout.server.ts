@@ -1,14 +1,14 @@
 import { gql, GraphQLClient } from "graphql-request";
-import type { PageServerLoad } from "./$types";
+import type { LayoutServerLoad } from "./$types";
 
 import { DATO_API_KEY } from "$env/static/private";
 
-export const load = (() => {
-  return getStartPageImages();
-}) satisfies PageServerLoad;
+export const load = (async () => {
+  return await getSiteData();
+}) satisfies LayoutServerLoad;
 
 const query = gql`
-  query {
+  {
     startPageCollection {
       startPageGallery {
         images {
@@ -17,10 +17,18 @@ const query = gql`
         }
       }
     }
+
+    about {
+      aboutText
+      pageTitle
+      profileImage {
+        url
+      }
+    }
   }
 `;
 
-async function getStartPageImages() {
+async function getSiteData() {
   const graphQLClient = new GraphQLClient("https://graphql.datocms.com/", {
     headers: {
       "content-type": "application/json",
