@@ -30,6 +30,7 @@ const query = gql`
       title
       gallery {
         title
+        displayType
         images {
           basename
           url
