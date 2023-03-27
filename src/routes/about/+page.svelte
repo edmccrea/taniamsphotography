@@ -1,35 +1,50 @@
 <script lang="ts">
+  import { goto } from "$app/navigation";
   import { fade } from "svelte/transition";
   import type { PageData } from "./$types";
 
   export let data: PageData;
   const about = data.about;
+
+  function handleClick() {
+    goto("/contact");
+  }
 </script>
 
-<div class="about-wrapper" in:fade>
-  <div class="about-content">
-    <h1>{about.pageTitle}</h1>
+<div class="about-container">
+  <div class="about-wrapper" in:fade>
+    <div class="image-wrapper">
+      <img src={about.profileImage.url} alt="" />
+    </div>
 
-    <content>
-      {@html about.aboutText}
-    </content>
-  </div>
+    <div class="about-content">
+      <h1>{about.pageTitle}</h1>
 
-  <div class="image-wrapper">
-    <img src={about.profileImage.url} alt="" />
+      <content>
+        {@html about.aboutText}
+      </content>
+
+      <button on:click={handleClick}> Get in touch </button>
+    </div>
   </div>
 </div>
 
 <style>
+  .about-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
   .about-wrapper {
     display: flex;
     gap: 20px;
-    margin: 3rem auto 0;
-    width: 75%;
+    width: 100%;
   }
 
   .about-content {
-    width: 50%;
+    width: 40%;
   }
 
   h1 {
@@ -51,11 +66,24 @@
   }
 
   .image-wrapper {
-    width: 50%;
-    margin-top: 3rem;
+    width: 30%;
   }
   img {
     width: 100%;
     border-radius: 5px;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  }
+
+  button {
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--color-gray-600);
+    color: var(--color-gray-600);
+    transition: all ease 0.2s;
+    border-radius: 5px;
+    font-size: 16px;
+  }
+
+  button:hover {
+    background-color: var(--color-gray-100);
   }
 </style>
