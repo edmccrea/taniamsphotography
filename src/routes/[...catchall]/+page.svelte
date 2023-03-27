@@ -4,6 +4,7 @@
 
   import HorizontalGrid from "$lib/components/HorizontalGrid.svelte";
   import VerticalGrid from "$lib/components/VerticalGrid.svelte";
+  import Showcase from "$lib/components/Showcase.svelte";
 
   export let data: PageData;
 
@@ -21,6 +22,8 @@
       <HorizontalGrid images={galleryData.images} />
     {:else if galleryData.displayType === "vertical"}
       <VerticalGrid images={galleryData.images} />
+    {:else}
+      <Showcase images={galleryData.images} />
     {/if}
   </div>
 {/key}
