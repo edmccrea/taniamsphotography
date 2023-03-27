@@ -1,5 +1,5 @@
 <script lang="ts">
-  export let images;
+  export let images: App.Image[];
 </script>
 
 <div class="container">

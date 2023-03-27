@@ -1,7 +1,7 @@
 <script lang="ts">
   import { fade } from "svelte/transition";
 
-  export let images;
+  export let images: App.Image[];
   const columns = images.reduce((acc, image, index) => {
     const columnIndex = index % 3;
     if (!acc[columnIndex]) {
