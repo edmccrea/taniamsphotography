@@ -5,13 +5,6 @@
   let email = "";
   let message = "";
   let formSubmitted = false;
-
-  function handleSubmit() {
-    name = "";
-    email = "";
-    message = "";
-    formSubmitted = true;
-  }
 </script>
 
 <div class="contact-wrapper" in:fade>
@@ -22,11 +15,7 @@
     </div>
   {:else}
     <h1>Get in touch.</h1>
-    <form
-      action="https://formsubmit.co/ed-mccrea@hotmail.co.uk"
-      method="POST"
-      on:submit|preventDefault={handleSubmit}
-    >
+    <form action="https://formsubmit.co/ed-mccrea@hotmail.co.uk" method="POST">
       <input type="text" name="name" bind:value={name} placeholder="Name" />
       <input type="email" name="email" bind:value={email} placeholder="Email" />
       <textarea name="message" bind:value={message} placeholder="Message" />
