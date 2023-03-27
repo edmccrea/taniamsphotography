@@ -42,7 +42,7 @@
       >
         <path
           d="M15 19L8 12L15 5"
-          stroke="#111827"
+          stroke="#4b5563"
           stroke-width="2"
           stroke-linecap="round"
           stroke-linejoin="round"
@@ -62,7 +62,7 @@
       >
         <path
           d="M9 5L16 12L9 19"
-          stroke="#111827"
+          stroke="#4b5563"
           stroke-width="2"
           stroke-linecap="round"
           stroke-linejoin="round"
@@ -93,17 +93,20 @@
     display: flex;
     flex-direction: column;
     gap: 1rem;
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
   }
 
   .showcase-image {
-    width: 100%;
-    height: 500px;
-    margin: 0 auto;
+    /* width: 100%; */
+    /* height: 500px; */
     position: relative;
     flex: 1 1 auto;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    width: 100%;
   }
 
   .showcase-image svg {
@@ -111,12 +114,10 @@
   }
 
   .showcase-image img {
-    cursor: pointer;
     object-fit: cover;
-    /* width: 100%; */
-    height: 100%;
+    height: 550px;
+    max-width: 85%;
     vertical-align: middle;
-    /* border-radius: 5px; */
   }
 
   .image-slider {
@@ -126,18 +127,20 @@
     overflow-y: hidden;
     scroll-snap-type: x mandatory;
     scroll-behavior: smooth;
+    margin: 0 auto;
+    overflow: hidden;
   }
 
   .image-slider img {
     height: 75px;
     object-fit: cover;
     cursor: pointer;
-    filter: grayscale(90%);
+    filter: saturate(0%);
     transition: filter 0.2s ease-in-out;
   }
 
   .image-slider img:hover,
   .image-slider img.active {
-    filter: grayscale(0%);
+    filter: saturate(100%);
   }
 </style>
