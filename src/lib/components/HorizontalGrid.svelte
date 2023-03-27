@@ -1,11 +1,20 @@
 <script lang="ts">
+  import { lightbox } from "$lib/stores/lightbox";
   export let images: App.Image[];
+
+  function openLightbox(index: number) {
+    lightbox.set({
+      open: true,
+      images,
+      currentImageIndex: index,
+    });
+  }
 </script>
 
 <div class="container">
   <ul class="image-gallery">
-    {#each images as image}
-      <li>
+    {#each images as image, index}
+      <li on:click={() => openLightbox(index)}>
         <img src={image.url} alt="" />
       </li>
     {/each}

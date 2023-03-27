@@ -1,28 +1,45 @@
 <script lang="ts">
-  import { onMount } from "svelte";
+  import { get } from "svelte/store";
   import type { PageData } from "./$types";
 
+  import { lightbox } from "../lib/stores/lightbox";
   import "../app.css";
   import Nav from "../lib/components/Nav.svelte";
+  import Lightbox from "../lib/components/Lightbox.svelte";
 
   export let data: PageData;
+  let showLightbox = false;
+  let lightboxImageIndex = 0;
 
   const customSectionTitle = data.galleryCollection.title;
   const customPages = data.galleryCollection.gallery.map(
     (gallery) => gallery.title
   );
 
-  // let showTitle = true;
-  // onMount(() => {
-  //   setTimeout(() => {
-  //     showTitle = false;
-  //   }, 2000);
-  // });
+  let lightboxImages: App.Image[];
+
+  function handleLightboxChange() {
+    const lightboxValue = get(lightbox);
+    if (lightboxValue.open) {
+      lightboxImageIndex = lightboxValue.currentImageIndex;
+      lightboxImages = lightboxValue.images;
+      showLightbox = true;
+    } else {
+      showLightbox = false;
+    }
+  }
+
+  $: $lightbox, handleLightboxChange();
 </script>
 
-<!-- {#if showTitle}
-  <h1>Tania McCrea Steele</h1>
-{:else} -->
+{#if showLightbox}
+  <Lightbox
+    bind:open={showLightbox}
+    images={lightboxImages}
+    currentImageIndex={lightboxImageIndex}
+  />
+{/if}
+
 <aside>
   <Nav {customSectionTitle} {customPages} />
 </aside>
@@ -31,7 +48,6 @@
   <slot />
 </main>
 
-<!-- {/if} -->
 <style>
   @media (min-width: 768px) {
     :global(body) {
@@ -47,6 +63,7 @@
     }
 
     main {
+      width: 100%;
       margin-left: 343px;
       padding: 40px 40px 40px 0;
     }

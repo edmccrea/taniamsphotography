@@ -1,6 +1,8 @@
 <script lang="ts">
   import { fade } from "svelte/transition";
 
+  import { lightbox } from "$lib/stores/lightbox";
+
   export let images: App.Image[];
   const columns = images.reduce((acc, image, index) => {
     const columnIndex = index % 3;
@@ -10,13 +12,21 @@
     acc[columnIndex].images.push(image);
     return acc;
   }, []);
+
+  function openLightbox(column: App.Image[], index: number) {
+    lightbox.set({
+      open: true,
+      images: column.images,
+      currentImageIndex: index,
+    });
+  }
 </script>
 
 <div class="image-gallery" in:fade>
   {#each columns as column}
     <div class="column">
-      {#each column.images as image}
-        <div class="image-item">
+      {#each column.images as image, index}
+        <div class="image-item" on:click={() => openLightbox(column, index)}>
           <img src={image.url} alt="" />
         </div>
       {/each}
@@ -43,6 +53,7 @@
     border-radius: 5px;
     height: 100%;
     object-fit: cover;
+    cursor: pointer;
   }
 
   @media only screen and (min-width: 768px) {
