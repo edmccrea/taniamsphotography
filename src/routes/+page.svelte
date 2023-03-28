@@ -30,7 +30,6 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
-    width: 33%;
   }
 
   .image-item img {
@@ -43,6 +42,10 @@
   @media only screen and (min-width: 768px) {
     .image-gallery {
       flex-direction: row;
+    }
+
+    .image-gallery .column {
+      width: 33%;
     }
   }
 </style>

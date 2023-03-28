@@ -8,17 +8,22 @@
 
   export let data: PageData;
 
+  let width: number;
+
   $: pageType = data.pageType;
   $: galleryData = data.galleryCollection.gallery.find(
     (gallery) => gallery.title.toLowerCase() === pageType
   );
 </script>
 
+<svelte:window bind:innerWidth={width} />
 {#key pageType}
   <div class="gallery-wrapper" in:fade>
     <h1>{galleryData.title}.</h1>
 
-    {#if galleryData.displayType === "horizontal"}
+    {#if width < 768}
+      <VerticalGrid images={galleryData.images} />
+    {:else if galleryData.displayType === "horizontal"}
       <HorizontalGrid images={galleryData.images} />
     {:else if galleryData.displayType === "vertical"}
       <VerticalGrid images={galleryData.images} />

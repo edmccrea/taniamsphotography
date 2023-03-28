@@ -2,10 +2,12 @@
   import { get } from "svelte/store";
   import type { PageData } from "./$types";
 
-  import { lightbox } from "../lib/stores/lightbox";
+  import { lightbox } from "$lib/stores/lightbox";
   import "../app.css";
-  import Nav from "../lib/components/Nav.svelte";
-  import Lightbox from "../lib/components/Lightbox.svelte";
+  import Nav from "$lib/components/Nav.svelte";
+  import Lightbox from "$lib/components/Lightbox.svelte";
+  import Footer from "$lib/components/Footer.svelte";
+  import MobileNav from "$lib/components/MobileNav.svelte";
 
   export let data: PageData;
   let showLightbox = false;
@@ -40,6 +42,10 @@
   />
 {/if}
 
+<div class="mobile-nav">
+  <MobileNav {customSectionTitle} {customPages} />
+</div>
+
 <aside>
   <Nav {customSectionTitle} {customPages} />
 </aside>
@@ -48,14 +54,40 @@
   <slot />
 </main>
 
+<div class="mobile-footer">
+  <Footer />
+</div>
+
 <style>
+  :global(body) {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  aside {
+    display: none;
+  }
+
+  main {
+    margin-left: 0;
+    flex-grow: 1;
+    padding: 1rem;
+    display: flex;
+  }
+
+  .mobile-footer {
+    width: 100%;
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
   @media (min-width: 768px) {
     :global(body) {
-      min-height: 100vh;
-      display: flex;
+      flex-direction: row;
     }
-
     aside {
+      display: block;
       position: fixed;
       top: 0;
       left: 0;
@@ -66,6 +98,14 @@
       width: 100%;
       margin-left: 343px;
       padding: 40px 40px 40px 0;
+    }
+
+    .mobile-nav {
+      display: none;
+    }
+
+    .mobile-footer {
+      display: none;
     }
   }
 </style>

@@ -39,12 +39,9 @@
   }
   .about-wrapper {
     display: flex;
+    flex-direction: column;
     gap: 20px;
     width: 100%;
-  }
-
-  .about-content {
-    width: 40%;
   }
 
   h1 {
@@ -65,9 +62,6 @@
     line-height: 1.25;
   }
 
-  .image-wrapper {
-    width: 30%;
-  }
   img {
     width: 100%;
     border-radius: 5px;
@@ -85,5 +79,19 @@
 
   button:hover {
     background-color: var(--color-gray-100);
+  }
+
+  @media (min-width: 768px) {
+    .about-wrapper {
+      flex-direction: row;
+    }
+
+    .about-content {
+      width: 40%;
+    }
+
+    .image-wrapper {
+      width: 30%;
+    }
   }
 </style>
