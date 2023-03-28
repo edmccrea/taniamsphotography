@@ -42,6 +42,11 @@
 </footer>
 
 <style>
+  footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
   .socials {
     margin-bottom: 0.5rem;
   }
@@ -64,5 +69,11 @@
     color: var(--color-gray-600);
     width: 16px;
     height: 16px;
+  }
+
+  @media (min-width: 768px) {
+    footer {
+      align-items: flex-start;
+    }
   }
 </style>
