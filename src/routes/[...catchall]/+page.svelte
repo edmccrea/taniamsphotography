@@ -34,13 +34,15 @@
 {/key}
 
 <style>
-  .gallery-wrapper {
-    margin-top: 3rem;
-  }
-
   h1 {
     font-size: 2rem;
     color: var(--color-gray-700);
     margin-bottom: 1rem;
+  }
+
+  @media (min-width: 768px) {
+    .gallery-wrapper {
+      margin-top: 3rem;
+    }
   }
 </style>
