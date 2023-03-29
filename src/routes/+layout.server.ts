@@ -12,8 +12,8 @@ const query = gql`
     startPageCollection {
       startPageGallery {
         images {
-          basename
           url
+          blurUpThumb
         }
       }
     }
@@ -23,6 +23,7 @@ const query = gql`
       pageTitle
       profileImage {
         url
+        blurUpThumb
       }
     }
 
@@ -32,8 +33,8 @@ const query = gql`
         title
         displayType
         images {
-          basename
           url
+          blurUpThumb
         }
       }
     }
