@@ -69,8 +69,8 @@
   }
 
   .lightbox {
-    width: 75%;
-    height: 80%;
+    width: 95%;
+    height: 50%;
     background-color: white;
     position: relative;
     display: flex;
@@ -86,7 +86,7 @@
   }
 
   .image-wrapper {
-    width: 80%;
+    width: 90%;
     height: 80%;
   }
 
@@ -94,5 +94,12 @@
     width: 100%;
     height: 100%;
     object-fit: contain;
+  }
+
+  @media (min-width: 768px) {
+    .lightbox {
+      width: 75%;
+      height: 80%;
+    }
   }
 </style>
