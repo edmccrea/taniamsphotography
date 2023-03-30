@@ -26,7 +26,11 @@
   {#each columns as column}
     <div class="column">
       {#each column.images as image, index}
-        <div class="image-item" on:click={() => openLightbox(column, index)}>
+        <div
+          class="image-item"
+          on:click={() => openLightbox(column, index)}
+          on:keyup={() => openLightbox(column, index)}
+        >
           <img src={image.responsiveImage.src} alt="" />
         </div>
       {/each}

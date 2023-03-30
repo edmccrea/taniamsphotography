@@ -17,21 +17,23 @@
 </script>
 
 <svelte:window bind:innerWidth={width} />
-{#key pageType}
-  <div class="gallery-wrapper" in:fade>
-    <h1>{galleryData.title}.</h1>
+{#if galleryData}
+  {#key pageType}
+    <div class="gallery-wrapper" in:fade>
+      <h1>{galleryData.title}.</h1>
 
-    {#if width < 768}
-      <VerticalGrid images={galleryData.images} />
-    {:else if galleryData.displayType === "horizontal"}
-      <HorizontalGrid images={galleryData.images} />
-    {:else if galleryData.displayType === "vertical"}
-      <VerticalGrid images={galleryData.images} />
-    {:else}
-      <Showcase images={galleryData.images} />
-    {/if}
-  </div>
-{/key}
+      {#if width < 768}
+        <VerticalGrid images={galleryData.images} />
+      {:else if galleryData.displayType === "horizontal"}
+        <HorizontalGrid images={galleryData.images} />
+      {:else if galleryData.displayType === "vertical"}
+        <VerticalGrid images={galleryData.images} />
+      {:else}
+        <Showcase images={galleryData.images} />
+      {/if}
+    </div>
+  {/key}
+{/if}
 
 <style>
   h1 {

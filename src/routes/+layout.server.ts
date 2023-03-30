@@ -55,6 +55,6 @@ async function getSiteData() {
     },
   });
 
-  const data = await graphQLClient.request(query);
+  const data: App.SiteData = await graphQLClient.request(query);
   return data;
 }
