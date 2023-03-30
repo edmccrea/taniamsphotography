@@ -150,14 +150,12 @@
     left: 0;
     height: 100vh;
     width: 100vw;
-    background-color: var(--color-gray-100);
+    background-color: #fff;
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 90;
     text-align: center;
-  }
-  nav {
   }
 
   li {
