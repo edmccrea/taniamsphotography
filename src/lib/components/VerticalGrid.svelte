@@ -27,7 +27,7 @@
     <div class="column">
       {#each column.images as image, index}
         <div class="image-item" on:click={() => openLightbox(column, index)}>
-          <img src={image.url} alt="" />
+          <img src={image.responsiveImage.src} alt="" />
         </div>
       {/each}
     </div>

@@ -50,7 +50,7 @@
       </svg>
     </button>
     {#key currentImageIndex}
-      <img src={currentImage.url} alt="" in:fade />
+      <img src={currentImage.responsiveImage.src} alt="" in:fade />
     {/key}
     <button on:click={() => moveCarousel(1)}>
       <svg
@@ -80,7 +80,7 @@
       >
         <img
           class:active={currentImageIndex === index}
-          src={image.url}
+          src={image.responsiveImage.src}
           alt=""
         />
       </div>

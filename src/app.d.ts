@@ -7,8 +7,10 @@ declare global {
     // interface PageData {}
     // interface Platform {}
     interface Image {
-      url: string;
-      basename: string;
+      blurThumb: string;
+      responsiveImage: {
+        src: string;
+      };
     }
   }
 }

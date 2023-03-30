@@ -15,7 +15,7 @@
   <ul class="image-gallery">
     {#each images as image, index}
       <li on:click={() => openLightbox(index)}>
-        <img src={image.url} alt="" />
+        <img src={image.responsiveImage.src} alt="" />
       </li>
     {/each}
   </ul>

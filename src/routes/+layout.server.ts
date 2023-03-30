@@ -12,7 +12,9 @@ const query = gql`
     startPageCollection {
       startPageGallery {
         images {
-          url
+          responsiveImage(imgixParams: { h: "1024" }) {
+            src
+          }
           blurUpThumb
         }
       }
@@ -22,7 +24,9 @@ const query = gql`
       aboutText
       pageTitle
       profileImage {
-        url
+        responsiveImage(imgixParams: { h: "1024" }) {
+          src
+        }
         blurUpThumb
       }
     }
@@ -33,7 +37,9 @@ const query = gql`
         title
         displayType
         images {
-          url
+          responsiveImage(imgixParams: { h: "1024" }) {
+            src
+          }
           blurUpThumb
         }
       }

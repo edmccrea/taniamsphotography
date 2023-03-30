@@ -12,7 +12,7 @@
     <div class="column">
       {#each column.images as image}
         <div class="image-item">
-          <img src={image.url} alt="" />
+          <img src={image.responsiveImage.src} loading="lazy" alt="" in:fade />
         </div>
       {/each}
     </div>
@@ -24,12 +24,17 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
+    width: 100%;
   }
 
   .image-gallery .column {
     display: flex;
     flex-direction: column;
     gap: 10px;
+  }
+
+  .image-item {
+    width: 100%;
   }
 
   .image-item img {

@@ -48,7 +48,7 @@
         </svg></button
       >
       <div class="image-wrapper">
-        <img src={currentImage.url} alt="" />
+        <img src={currentImage.responsiveImage.src} alt="" />
       </div>
     </div>
   </div>
