@@ -14,7 +14,7 @@
 <div class="about-container">
   <div class="about-wrapper" in:fade>
     <div class="image-wrapper">
-      <img src={about.profileImage.url} alt="" />
+      <img src={about.profileImage.responsiveImage.src} alt="" />
     </div>
 
     <div class="about-content">
@@ -60,6 +60,12 @@
   content :global(p) {
     margin-bottom: 1rem;
     line-height: 1.25;
+  }
+
+  content :global(a) {
+    color: var(--color-gray-500);
+    text-decoration: underline;
+    cursor: pointer;
   }
 
   img {
