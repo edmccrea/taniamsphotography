@@ -30,7 +30,7 @@
       <input type="text" name="name" bind:value={name} placeholder="Name" />
       <input type="email" name="email" bind:value={email} placeholder="Email" />
       <textarea name="message" bind:value={message} placeholder="Message" />
-      <button type="submit">Send</button>
+      <button aria-label="send" type="submit">Send</button>
     </form>
   {/if}
 </div>

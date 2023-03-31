@@ -24,6 +24,7 @@
 {#if showNav}
   <div class="nav-wrapper">
     <button
+      aria-label="close"
       class="close-nav"
       in:fade
       on:click={() => (showNav = false)}
@@ -47,10 +48,10 @@
     <nav in:fade>
       <ul class="nav-items">
         <li>
-          <a href="/">Home</a>
+          <a aria-label="home" href="/">Home</a>
         </li>
         <li>
-          <a href="/about">About</a>
+          <a aria-label="about" href="/about">About</a>
         </li>
         <li
           class="seasons-dropdown"
@@ -80,22 +81,23 @@
           <ul class="seasons-list" transition:slide|local>
             {#each customPages as page}
               <li>
-                <a href={page.toLowerCase()}>{page}</a>
+                <a aria-label={page} href={page.toLowerCase()}>{page}</a>
               </li>
             {/each}
           </ul>
         {/if}
         <li>
-          <a href="/blog">Blog</a>
+          <a aria-label="blog" href="/blog">Blog</a>
         </li>
         <li>
           <a
+            aria-label="shop"
             href="https://www.etsy.com/uk/shop/TaniaMcCreaSteele?fbclid=IwAR28D03u4blB0DNj-Kr15L6__u1AtRgMku1Y_3Lbrfv4KilN0joIljymy44"
             target="_blank">Shop</a
           >
         </li>
         <li>
-          <a href="/contact">Contact</a>
+          <a aria-label="contact" href="/contact">Contact</a>
         </li>
       </ul>
     </nav>
@@ -104,7 +106,7 @@
   <header>
     <a href="/" class="logo">Tania<br /> McCrea Steele</a>
 
-    <button on:click={() => (showNav = !showNav)}
+    <button aria-label="menu" on:click={() => (showNav = !showNav)}
       ><svg
         width="24"
         height="24"

@@ -30,7 +30,7 @@
       on:keyup|stopPropagation
       transition:fade={{ duration: 150 }}
     >
-      <button on:click={closeModal}
+      <button aria-label="close" on:click={closeModal}
         ><svg
           width="24"
           height="24"

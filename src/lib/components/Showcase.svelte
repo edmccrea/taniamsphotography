@@ -32,7 +32,7 @@
 
 <div class="showcase-wrapper">
   <div class="showcase-image">
-    <button on:click={() => moveCarousel(-1)}>
+    <button aria-label="previous" on:click={() => moveCarousel(-1)}>
       <svg
         width="32"
         height="32"
@@ -52,7 +52,7 @@
     {#key currentImageIndex}
       <img src={currentImage.responsiveImage.src} alt="" in:fade />
     {/key}
-    <button on:click={() => moveCarousel(1)}>
+    <button aria-label="next" on:click={() => moveCarousel(1)}>
       <svg
         width="32"
         height="32"

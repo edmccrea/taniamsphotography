@@ -1,6 +1,7 @@
 <footer>
   <div class="socials">
     <a
+      aria-label="Instagram"
       href="https://instagram.com/taniamccreasteele_photography?igshid=YmMyMTA2M2Y="
       target="_blank"
     >
@@ -14,6 +15,7 @@
       >
     </a>
     <a
+      aria-label="Etsy"
       href="https://www.etsy.com/uk/shop/TaniaMcCreaSteele?fbclid=IwAR28D03u4blB0DNj-Kr15L6__u1AtRgMku1Y_3Lbrfv4KilN0joIljymy44"
       target="_blank"
     >
@@ -26,7 +28,11 @@
         /></svg
       >
     </a>
-    <a href="https://www.facebook.com/tania.m.steele" target="_blank">
+    <a
+      aria-label="Facebook"
+      href="https://www.facebook.com/tania.m.steele"
+      target="_blank"
+    >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 320 512"
@@ -58,11 +64,7 @@
   }
 
   a {
-    padding: 5px 8px;
-  }
-
-  a:first-child {
-    padding-left: 0;
+    padding: 15px 20px;
   }
 
   svg {
@@ -74,6 +76,10 @@
   @media (min-width: 768px) {
     footer {
       align-items: flex-start;
+    }
+
+    a:first-child {
+      padding-left: 0;
     }
   }
 </style>

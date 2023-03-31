@@ -13,7 +13,10 @@ const query = gql`
       startPageGallery {
         images {
           responsiveImage(imgixParams: { h: "1024" }) {
+            base64
+            bgColor
             src
+            srcSet
           }
           blurUpThumb
         }

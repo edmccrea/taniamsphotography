@@ -24,7 +24,9 @@
         {@html about.aboutText}
       </content>
 
-      <button on:click={handleClick}> Get in touch </button>
+      <button aria-label="contact" on:click={handleClick}>
+        Get in touch
+      </button>
     </div>
   </div>
 </div>
