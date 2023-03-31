@@ -8,12 +8,26 @@
   import Lightbox from "$lib/components/Lightbox.svelte";
   import Footer from "$lib/components/Footer.svelte";
   import MobileNav from "$lib/components/MobileNav.svelte";
+  import { webVitals } from "$lib/vitals";
+  import { browser } from "$app/environment";
+  import { page } from "$app/stores";
 
   import { dev } from "$app/environment";
   import { inject } from "@vercel/analytics";
   inject({ mode: dev ? "development" : "production" });
 
   export let data: PageData;
+
+  let analyticsId = import.meta.env.VERCEL_ANALYTICS_ID;
+
+  $: if (browser && analyticsId) {
+    webVitals({
+      path: $page.url.pathname,
+      params: $page.params,
+      analyticsId,
+    });
+  }
+
   let showLightbox = false;
   let lightboxImageIndex = 0;
 
