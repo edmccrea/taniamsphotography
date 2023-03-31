@@ -98,6 +98,7 @@
     font-weight: 500;
     cursor: pointer;
     transition: all ease 0.2s;
+    color: var(--color-gray-600);
   }
 
   button:hover {
