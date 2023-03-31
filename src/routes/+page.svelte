@@ -12,7 +12,7 @@
     <div class="column">
       {#each column.images as image}
         <div class="image-item">
-          <img src={image.responsiveImage.src} loading="lazy" alt="" in:fade />
+            loading="eager"
         </div>
       {/each}
     </div>
