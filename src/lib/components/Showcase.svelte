@@ -71,6 +71,7 @@
     </button>
   </div>
 
+  <!-- TODO make this work -->
   <!-- <div class="image-slider">
     {#each images as image, index}
       <div

@@ -14,7 +14,10 @@
 <div class="container">
   <ul class="image-gallery">
     {#each images as image, index}
-      <li on:click={() => openLightbox(index)}>
+      <li
+        on:click={() => openLightbox(index)}
+        on:keyup={() => openLightbox(index)}
+      >
         <img src={image.responsiveImage.src} alt="" />
       </li>
     {/each}
