@@ -30,7 +30,7 @@
     </a>
     <a
       aria-label="Facebook"
-      href="https://www.facebook.com/tania.m.steele"
+      href="https://www.facebook.com/profile.php?id=100089560767818"
       target="_blank"
     >
       <svg
