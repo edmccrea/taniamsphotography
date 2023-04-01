@@ -10,7 +10,7 @@
 
   let width: number;
 
-  $: pageType = data.pageType;
+  $: pageType = decodeURIComponent(data.pageType);
   $: galleryData = data.galleryCollection.gallery.find(
     (gallery) => gallery.title.toLowerCase() === pageType
   );
