@@ -71,7 +71,7 @@
     </button>
   </div>
 
-  <div class="image-slider">
+  <!-- <div class="image-slider">
     {#each images as image, index}
       <div
         class="image-item"
@@ -85,7 +85,7 @@
         />
       </div>
     {/each}
-  </div>
+  </div> -->
 </div>
 
 <style>
@@ -115,7 +115,8 @@
 
   .showcase-image img {
     object-fit: cover;
-    height: 550px;
+    height: 100%;
+    max-height: 600px;
     max-width: 85%;
     vertical-align: middle;
   }

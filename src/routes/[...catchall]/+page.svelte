@@ -45,6 +45,7 @@
   @media (min-width: 768px) {
     .gallery-wrapper {
       margin-top: 3rem;
+      width: 100%;
     }
   }
 </style>
