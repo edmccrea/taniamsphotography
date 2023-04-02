@@ -12,7 +12,7 @@ const query = gql`
     startPageCollection {
       startPageGallery {
         images {
-          responsiveImage(imgixParams: { h: "1024" }) {
+          responsiveImage(imgixParams: { auto: format, h: "1024", q: "45" }) {
             base64
             bgColor
             src
@@ -27,7 +27,7 @@ const query = gql`
       aboutText
       pageTitle
       profileImage {
-        responsiveImage(imgixParams: { h: "1024" }) {
+        responsiveImage(imgixParams: { auto: format, h: "1024", q: "45" }) {
           src
         }
         blurUpThumb
@@ -40,7 +40,7 @@ const query = gql`
         title
         displayType
         images {
-          responsiveImage(imgixParams: { h: "1024" }) {
+          responsiveImage(imgixParams: { auto: format, h: "1024", q: "45" }) {
             src
           }
           blurUpThumb
