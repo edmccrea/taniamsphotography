@@ -5,28 +5,45 @@
   let email = "";
   let message = "";
   let formSubmitted = false;
+  let loading = false;
 
-  function handleSubmit() {
+  async function handleSubmit() {
+    loading = true;
+    const res = await fetch(
+      "https://formsubmit.co/ajax/b347f3db706215ed180d366c7551f129",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          email,
+          name,
+          message,
+        }),
+      }
+    );
+    console.log(res);
     formSubmitted = true;
     name = "";
     email = "";
     message = "";
+    setTimeout(() => {
+      loading = false;
+    }, 3000);
   }
 </script>
 
 <div class="contact-wrapper" in:fade>
-  {#if formSubmitted}
+  {#if formSubmitted || loading}
     <div class="submitted" in:fade>
       <h1>Thanks.</h1>
       <p>I'll get back to you as soon as possible</p>
     </div>
   {:else}
     <h1>Get in touch.</h1>
-    <form
-      action="https://formsubmit.co/taniakm@yahoo.com"
-      method="POST"
-      on:submit|preventDefault={handleSubmit}
-    >
+    <form on:submit|preventDefault={handleSubmit}>
       <input type="text" name="name" bind:value={name} placeholder="Name" />
       <input type="email" name="email" bind:value={email} placeholder="Email" />
       <textarea name="message" bind:value={message} placeholder="Message" />
