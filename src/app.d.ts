@@ -35,6 +35,33 @@ declare global {
         src: string;
       };
     }
+
+    interface BlogPost {
+      title: string;
+      category: string;
+      excerpt: string;
+      publishDate: string;
+      id: string;
+      url: string;
+      cardImage: {
+        responsiveImage: {
+          src: string;
+        };
+      };
+      content: BlogContent[];
+    }
+
+    interface BlogContent {
+      image?: {
+        responsiveImage: {
+          src: string;
+        };
+      };
+      caption?: string;
+      id?: string;
+      subtitle?: string;
+      text?: string;
+    }
   }
 }
 

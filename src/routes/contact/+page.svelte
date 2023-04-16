@@ -24,7 +24,6 @@
         }),
       }
     );
-    console.log(res);
     formSubmitted = true;
     name = "";
     email = "";
