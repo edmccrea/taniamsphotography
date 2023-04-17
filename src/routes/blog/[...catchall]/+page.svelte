@@ -11,6 +11,16 @@
   const blogPost: App.BlogPost = data.blogPost;
 </script>
 
+<svelte:head>
+  <meta property="og:image" content={blogPost.cardImage.responsiveImage.src} />
+  <meta property="og:title" content={blogPost.excerpt} />
+  <meta
+    property="og:url"
+    content="https://www.taniamccreasteele.com/blog/{blogPost.url}/"
+  />
+  <meta property="og:type" content="website" />
+</svelte:head>
+
 <div class="post-wrapper" in:fade>
   <div class="title">
     <h1>{blogPost.title}</h1>
