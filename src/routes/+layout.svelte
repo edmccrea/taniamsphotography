@@ -2,31 +2,16 @@
   import { get } from "svelte/store";
   import type { PageData } from "./$types";
 
-  import { lightbox } from "$lib/stores/lightbox";
+  import { dev } from "$app/environment";
   import "../app.css";
+  import { lightbox } from "$lib/stores/lightbox";
   import Nav from "$lib/components/Nav.svelte";
   import Lightbox from "$lib/components/Lightbox.svelte";
   import Footer from "$lib/components/Footer.svelte";
   import MobileNav from "$lib/components/MobileNav.svelte";
-  import { webVitals } from "$lib/vitals";
-  import { browser } from "$app/environment";
-  import { page } from "$app/stores";
-
-  import { dev } from "$app/environment";
-  import { inject } from "@vercel/analytics";
-  inject({ mode: dev ? "development" : "production" });
+  import Analytics from "$lib/components/Analytics.svelte";
 
   export let data: PageData;
-
-  let analyticsId = import.meta.env.VERCEL_ANALYTICS_ID;
-
-  $: if (browser && analyticsId) {
-    webVitals({
-      path: $page.url.pathname,
-      params: $page.params,
-      analyticsId,
-    });
-  }
 
   let showLightbox = false;
   let lightboxImageIndex = 0;
@@ -51,6 +36,10 @@
 
   $: $lightbox, handleLightboxChange();
 </script>
+
+{#if !dev}
+  <Analytics />
+{/if}
 
 {#if showLightbox}
   <Lightbox
