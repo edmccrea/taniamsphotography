@@ -5,11 +5,11 @@ import { DATO_API_KEY } from "$env/static/private";
 
 export const load = (async ({ request }) => {
   //TODO fix this mess
-  const urlMatch = request.url.split("/");
-  console.log(urlMatch[4]);
+  const url = new URL(request.url);
+  const urlMatch = url.pathname.split("/");
   const query = gql`
   {
-    blogPost(filter: {url: {eq: "${urlMatch[4]}"}}) {
+    blogPost(filter: {url: {eq: "${urlMatch[2]}"}}) {
       title
       category
       content {
