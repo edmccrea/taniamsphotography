@@ -2,14 +2,12 @@
   import { get } from "svelte/store";
   import type { PageData } from "./$types";
 
-  import { dev } from "$app/environment";
   import "../app.css";
   import { lightbox } from "$lib/stores/lightbox";
   import Nav from "$lib/components/Nav.svelte";
   import Lightbox from "$lib/components/Lightbox.svelte";
   import Footer from "$lib/components/Footer.svelte";
   import MobileNav from "$lib/components/MobileNav.svelte";
-  import Analytics from "$lib/components/Analytics.svelte";
 
   export let data: PageData;
 
@@ -36,10 +34,6 @@
 
   $: $lightbox, handleLightboxChange();
 </script>
-
-{#if !dev}
-  <Analytics />
-{/if}
 
 {#if showLightbox}
   <Lightbox
