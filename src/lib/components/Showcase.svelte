@@ -97,6 +97,7 @@
     width: 100%;
     max-width: 900px;
     margin: 0 auto;
+    height: 600px;
   }
 
   .showcase-image {
@@ -122,7 +123,7 @@
     vertical-align: middle;
   }
 
-  .image-slider {
+  /* .image-slider {
     display: flex;
     flex-direction: row;
     overflow-x: auto;
@@ -144,5 +145,5 @@
   .image-slider img:hover,
   .image-slider img.active {
     filter: saturate(100%);
-  }
+  } */
 </style>
