@@ -9,6 +9,10 @@
   import Footer from "$lib/components/Footer.svelte";
   import MobileNav from "$lib/components/MobileNav.svelte";
 
+  import { dev } from "$app/environment";
+  import { inject } from "@vercel/analytics";
+  inject({ mode: dev ? "development" : "production" });
+
   export let data: PageData;
 
   let showLightbox = false;
