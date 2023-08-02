@@ -17,4 +17,8 @@
   .text-block :global(p):last-child {
     margin-bottom: 0;
   }
+
+  .text-block :global(strong) {
+    font-weight: 600;
+  }
 </style>
