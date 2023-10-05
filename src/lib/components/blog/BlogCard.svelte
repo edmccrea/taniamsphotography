@@ -23,7 +23,7 @@
     cursor: pointer;
     width: 325px;
     height: 350px;
-    border-radius: 5px;
+    color: var(--color-gray-700);
   }
 
   .img-container {
@@ -48,6 +48,7 @@
     font-size: 24px;
     font-weight: 500;
     padding: 0.5rem 0;
+    font-family: "Poppins", sans-serif;
   }
   p {
     font-size: 14px;
