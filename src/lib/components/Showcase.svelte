@@ -122,6 +122,7 @@
     height: 100%;
     max-height: 600px;
     max-width: 85%;
+    margin: 0 auto;
   }
 
   /* .image-slider {
