@@ -1,5 +1,6 @@
 <script lang="ts">
   import { fade } from "svelte/transition";
+  import { Image } from "@datocms/svelte";
 
   import { lightbox } from "$lib/stores/lightbox";
 
@@ -31,7 +32,7 @@
           on:click={() => openLightbox(column, index)}
           on:keyup={() => openLightbox(column, index)}
         >
-          <img src={image.responsiveImage.src} alt="" />
+          <Image data={image.responsiveImage} />
         </div>
       {/each}
     </div>
@@ -51,12 +52,8 @@
     gap: 10px;
   }
 
-  .image-item img {
-    width: 100%;
+  .image-item :global(div) {
     border-radius: 5px;
-    height: 100%;
-    object-fit: cover;
-    cursor: pointer;
   }
 
   @media only screen and (min-width: 768px) {

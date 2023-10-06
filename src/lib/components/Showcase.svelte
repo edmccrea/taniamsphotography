@@ -1,5 +1,6 @@
 <script lang="ts">
   import { fade } from "svelte/transition";
+  import { Image } from "@datocms/svelte";
 
   export let images: App.Image[];
 
@@ -50,7 +51,9 @@
       </svg>
     </button>
     {#key currentImageIndex}
-      <img src={currentImage.responsiveImage.src} alt="" in:fade />
+      <div class="image-container">
+        <Image data={currentImage.responsiveImage} />
+      </div>
     {/key}
     <button aria-label="next" on:click={() => moveCarousel(1)}>
       <svg
@@ -115,12 +118,10 @@
     cursor: pointer;
   }
 
-  .showcase-image img {
-    object-fit: cover;
+  .image-container :global(div) {
     height: 100%;
     max-height: 600px;
     max-width: 85%;
-    vertical-align: middle;
   }
 
   /* .image-slider {

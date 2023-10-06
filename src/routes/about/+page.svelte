@@ -2,6 +2,7 @@
   import { goto } from "$app/navigation";
   import { fade } from "svelte/transition";
   import type { PageData } from "./$types";
+  import { Image } from "@datocms/svelte";
 
   export let data: PageData;
   const about = data.about;
@@ -14,7 +15,7 @@
 <div class="about-container">
   <div class="about-wrapper" in:fade>
     <div class="image-wrapper">
-      <img src={about.profileImage.responsiveImage.src} alt="" />
+      <Image data={about.profileImage.responsiveImage} />
     </div>
 
     <div class="about-content">
@@ -70,8 +71,7 @@
     cursor: pointer;
   }
 
-  img {
-    width: 100%;
+  .image-wrapper :global(div) {
     border-radius: 5px;
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
   }

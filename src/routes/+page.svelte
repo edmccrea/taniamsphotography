@@ -1,6 +1,7 @@
 <script lang="ts">
   import { fade } from "svelte/transition";
   import type { PageData } from "./$types";
+  import { Image } from "@datocms/svelte";
 
   export let data: PageData;
 
@@ -19,14 +20,7 @@
     <div class="column">
       {#each column.images as image}
         <div class="image-item">
-          <div class="image-item">
-            <img
-              src={image.responsiveImage.src}
-              loading="eager"
-              alt=""
-              in:fade
-            />
-          </div>
+          <Image data={image.responsiveImage} />
         </div>
       {/each}
     </div>
@@ -51,11 +45,8 @@
     width: 100%;
   }
 
-  .image-item img {
-    width: 100%;
+  .image-item :global(div) {
     border-radius: 5px;
-    height: 100%;
-    object-fit: cover;
   }
 
   @media only screen and (min-width: 768px) {

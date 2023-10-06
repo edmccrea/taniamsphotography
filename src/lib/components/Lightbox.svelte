@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { Image } from "@datocms/svelte";
   import { fade } from "svelte/transition";
 
   export let images: App.Image[];
@@ -48,7 +49,7 @@
         </svg></button
       >
       <div class="image-wrapper">
-        <img src={currentImage.responsiveImage.src} alt="" />
+        <Image data={currentImage.responsiveImage} />
       </div>
     </div>
   </div>
@@ -90,10 +91,14 @@
     height: 80%;
   }
 
-  .image-wrapper img {
-    width: 100%;
+  .image-wrapper :global(div) {
     height: 100%;
+  }
+
+  :global(img) {
+    height: 100% !important;
     object-fit: contain;
+    scale: 100% !important;
   }
 
   @media (min-width: 768px) {

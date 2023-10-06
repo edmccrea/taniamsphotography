@@ -1,5 +1,7 @@
 <script lang="ts">
+  import { Image } from "@datocms/svelte";
   import { lightbox } from "$lib/stores/lightbox";
+
   export let images: App.Image[];
 
   function openLightbox(index: number) {
@@ -17,8 +19,9 @@
       <li
         on:click={() => openLightbox(index)}
         on:keyup={() => openLightbox(index)}
+        class="image-item"
       >
-        <img src={image.responsiveImage.src} alt="" />
+        <Image data={image.responsiveImage} />
       </li>
     {/each}
   </ul>
@@ -38,11 +41,7 @@
     flex: 1 1 auto;
   }
 
-  .image-gallery li img {
-    object-fit: cover;
-    width: 100%;
-    height: 100%;
-    vertical-align: middle;
+  .image-item :global(div) {
     border-radius: 5px;
   }
 
