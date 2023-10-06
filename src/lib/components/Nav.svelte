@@ -45,7 +45,7 @@
       <ul class="seasons-list" transition:slide|local>
         {#each customPages as page}
           <li>
-            <a href={encodeURIComponent(page.toLowerCase())}>{page}</a>
+            <a href={"/" + encodeURIComponent(page.toLowerCase())}>{page}</a>
           </li>
         {/each}
       </ul>
