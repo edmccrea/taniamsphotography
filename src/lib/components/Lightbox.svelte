@@ -48,7 +48,7 @@
           />
         </svg></button
       >
-      <div class="image-wrapper">
+      <div class="lightbox-image-container">
         <Image data={currentImage.responsiveImage} />
       </div>
     </div>
@@ -86,16 +86,16 @@
     right: 0.5rem;
   }
 
-  .image-wrapper {
+  .lightbox-image-container {
     width: 90%;
     height: 80%;
   }
 
-  .image-wrapper :global(div) {
+  .lightbox-image-container :global(div) {
     height: 100%;
   }
 
-  :global(img) {
+  .lightbox-image-container :global(img) {
     height: 100% !important;
     object-fit: contain;
     scale: 100% !important;
