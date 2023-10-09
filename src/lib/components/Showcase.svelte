@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { fade } from "svelte/transition";
   import { Image } from "@datocms/svelte";
 
   export let images: App.Image[];
@@ -22,11 +21,6 @@
       }
     }
 
-    currentImage = images[currentImageIndex];
-  }
-
-  function selectImage(index: number) {
-    currentImageIndex = index;
     currentImage = images[currentImageIndex];
   }
 </script>
@@ -73,23 +67,6 @@
       </svg>
     </button>
   </div>
-
-  <!-- TODO make this work -->
-  <!-- <div class="image-slider">
-    {#each images as image, index}
-      <div
-        class="image-item"
-        on:click={() => selectImage(index)}
-        on:keyup={() => selectImage(index)}
-      >
-        <img
-          class:active={currentImageIndex === index}
-          src={image.responsiveImage.src}
-          alt=""
-        />
-      </div>
-    {/each}
-  </div> -->
 </div>
 
 <style>
@@ -104,8 +81,6 @@
   }
 
   .showcase-image {
-    /* width: 100%; */
-    /* height: 500px; */
     position: relative;
     flex: 1 1 auto;
     display: flex;
@@ -126,30 +101,11 @@
   }
 
   .image-container :global(img) {
-    object-fit: cover;
+    object-fit: contain;
+    height: 100%;
   }
 
-  /* .image-slider {
-    display: flex;
-    flex-direction: row;
-    overflow-x: auto;
-    overflow-y: hidden;
-    scroll-snap-type: x mandatory;
-    scroll-behavior: smooth;
-    margin: 0 auto;
-    overflow: hidden;
+  .image-container :global(.placeholder) {
+    scale: 100% !important;
   }
-
-  .image-slider img {
-    height: 75px;
-    object-fit: cover;
-    cursor: pointer;
-    filter: saturate(0%);
-    transition: filter 0.2s ease-in-out;
-  }
-
-  .image-slider img:hover,
-  .image-slider img.active {
-    filter: saturate(100%);
-  } */
 </style>
