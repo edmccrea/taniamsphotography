@@ -125,6 +125,10 @@
     margin: 0 auto;
   }
 
+  .image-container :global(img) {
+    object-fit: cover;
+  }
+
   /* .image-slider {
     display: flex;
     flex-direction: row;
