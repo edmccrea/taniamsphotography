@@ -1,7 +1,7 @@
 import { gql, GraphQLClient } from "graphql-request";
 import type { LayoutServerLoad } from "./$types";
 
-import { DATO_API_KEY } from "$env/static/private";
+import { DATO_API_KEY, DATO_CONNECTION_URL } from "$env/static/private";
 
 export const load = (async () => {
   return await getSiteData();
@@ -53,29 +53,13 @@ const query = gql`
       title
       gallery {
         title
-        displayType
-        images {
-          responsiveImage(imgixParams: { auto: format, h: "1024", q: "45" }) {
-            srcSet
-            webpSrcSet
-            sizes
-            src
-            width
-            height
-            aspectRatio
-            alt
-            title
-            base64
-          }
-          blurUpThumb
-        }
       }
     }
   }
 `;
 
 async function getSiteData() {
-  const graphQLClient = new GraphQLClient("https://graphql.datocms.com/", {
+  const graphQLClient = new GraphQLClient(DATO_CONNECTION_URL, {
     headers: {
       "content-type": "application/json",
       authorization: `Bearer ${DATO_API_KEY}`,
