@@ -18,10 +18,10 @@
   let showLightbox = false;
   let lightboxImageIndex = 0;
 
-  const customSectionTitle = data.galleryCollection.title;
-  const customPages = data.galleryCollection.gallery.map(
-    (gallery) => gallery.title
-  );
+  const customSectionTitle = "Gallery";
+  const customPages = data.allGalleryCollections.map((gallery) => {
+    return { title: gallery.title, url: gallery.url };
+  });
 
   let lightboxImages: App.Image[];
 

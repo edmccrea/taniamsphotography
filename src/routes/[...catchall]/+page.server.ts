@@ -4,7 +4,8 @@ import type { PageServerLoad } from "./$types";
 import { DATO_API_KEY, DATO_CONNECTION_URL } from "$env/static/private";
 
 export const load = (async ({ url }) => {
-  const galleryCollection = await getGalleryCollection();
+  const pagePath = url.pathname.slice(1);
+  const galleryCollection = await getGalleryCollection(pagePath);
   return {
     pageType: url.pathname.slice(1),
     ...galleryCollection,
@@ -12,38 +13,36 @@ export const load = (async ({ url }) => {
 }) satisfies PageServerLoad;
 
 const query = gql`
-  {
-    galleryCollection {
+  query GalleryCollection($pagePath: String!) {
+    galleryCollection(filter: { url: { eq: $pagePath } }) {
       title
-      gallery {
-        title
-        displayType
-        images {
-          responsiveImage(imgixParams: { auto: format, h: "1024", q: "45" }) {
-            srcSet
-            webpSrcSet
-            sizes
-            src
-            width
-            height
-            aspectRatio
-            alt
-            title
-            base64
-          }
-          blurUpThumb
+      images {
+        responsiveImage(imgixParams: { auto: format, h: "1024", q: "45" }) {
+          srcSet
+          webpSrcSet
+          sizes
+          src
+          width
+          height
+          aspectRatio
+          alt
+          title
+          base64
         }
+        blurUpThumb
       }
+      displayType
     }
   }
 `;
 
-async function getGalleryCollection() {
+async function getGalleryCollection(pagePath: string) {
   const graphQLClient = new GraphQLClient(DATO_CONNECTION_URL, {
     headers: {
       "content-type": "application/json",
       authorization: `Bearer ${DATO_API_KEY}`,
     },
+    body: JSON.stringify({ query, variables: { pagePath } }),
   });
 
   const data: App.SiteData["galleryCollection"] = await graphQLClient.request(
