@@ -11,9 +11,7 @@
   let width: number;
 
   $: pageType = decodeURIComponent(data.pageType);
-  $: galleryData = data.galleryCollection.gallery.find(
-    (gallery) => gallery.title.toLowerCase() === pageType
-  );
+  $: galleryData = data.galleryCollection;
 </script>
 
 <svelte:window bind:innerWidth={width} />

@@ -3,7 +3,7 @@
   import { fade, slide } from "svelte/transition";
 
   export let customSectionTitle: string;
-  export let customPages: string[];
+  export let customPages: { title: string; url: string }[];
 
   let showNav = false;
   let seasonsOpen = false;
@@ -81,7 +81,7 @@
           <ul class="seasons-list" transition:slide|local>
             {#each customPages as page}
               <li>
-                <a aria-label={page} href={page.toLowerCase()}>{page}</a>
+                <a aria-label={page.title} href={page.url}>{page.title}</a>
               </li>
             {/each}
           </ul>

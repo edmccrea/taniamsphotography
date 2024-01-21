@@ -4,6 +4,7 @@ declare global {
       startPageCollection: StartPageCollection;
       about: About;
       galleryCollection: GalleryCollection;
+      allGalleryCollections: { title: string; url: string }[];
     }
 
     interface StartPageCollection {
@@ -20,7 +21,9 @@ declare global {
 
     interface GalleryCollection {
       title: string;
-      gallery: Gallery[];
+      images: Image[];
+      url: string;
+      displayType: string;
     }
 
     interface Gallery {

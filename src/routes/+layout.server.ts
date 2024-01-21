@@ -49,11 +49,9 @@ const query = gql`
       }
     }
 
-    galleryCollection {
+    allGalleryCollections(orderBy: displayType_DESC) {
       title
-      gallery {
-        title
-      }
+      url
     }
   }
 `;

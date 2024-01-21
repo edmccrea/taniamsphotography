@@ -4,7 +4,7 @@
   let seasonsOpen = false;
 
   export let customSectionTitle: string;
-  export let customPages: string[];
+  export let customPages: { title: string; url: string }[];
 </script>
 
 <nav>
@@ -45,7 +45,7 @@
       <ul class="seasons-list" transition:slide|local>
         {#each customPages as page}
           <li>
-            <a href={"/" + encodeURIComponent(page.toLowerCase())}>{page}</a>
+            <a href={`/${page.url}`}>{page.title}</a>
           </li>
         {/each}
       </ul>
