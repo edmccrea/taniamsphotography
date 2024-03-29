@@ -39,6 +39,13 @@
   $: $lightbox, handleLightboxChange();
 </script>
 
+<svelte:head>
+  <meta
+    name="keywords"
+    content="Tania McCrea Steele Photography bradford wiltshire somerset photography landscape portrait photo gallery printing"
+  />
+</svelte:head>
+
 {#if showLightbox}
   <Lightbox
     bind:open={showLightbox}
