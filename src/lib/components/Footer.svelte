@@ -44,7 +44,7 @@
     </a>
   </div>
 
-  <p>&copy; Tania McCrea Steele 2023</p>
+  <p>&copy; Tania McCrea Steele {new Date().getFullYear()}</p>
 </footer>
 
 <style>
