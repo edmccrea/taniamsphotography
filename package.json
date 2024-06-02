@@ -24,7 +24,6 @@
 	"type": "module",
 	"dependencies": {
 		"@datocms/svelte": "^1.2.0",
-		"@vercel/analytics": "^0.1.11",
 		"graphql-request": "^5.2.0"
 	}
 }
