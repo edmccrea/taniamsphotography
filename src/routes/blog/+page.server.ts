@@ -9,7 +9,7 @@ export const load = (async () => {
 
 const query = gql`
   {
-    allBlogPosts {
+    allBlogPosts(orderBy: publishDate_DESC) {
       title
       category
       excerpt
