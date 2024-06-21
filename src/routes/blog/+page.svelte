@@ -32,6 +32,7 @@
   .cards {
     display: flex;
     flex-direction: column;
+    gap: 1rem;
   }
 
   @media (min-width: 768px) {
@@ -42,7 +43,6 @@
     .cards {
       flex-direction: row;
       flex-wrap: wrap;
-      gap: 1rem;
     }
   }
 </style>

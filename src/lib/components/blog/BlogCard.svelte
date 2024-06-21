@@ -22,7 +22,7 @@
     flex-direction: column;
     cursor: pointer;
     width: 325px;
-    height: 350px;
+    max-height: 350px;
     color: var(--color-gray-700);
   }
 
