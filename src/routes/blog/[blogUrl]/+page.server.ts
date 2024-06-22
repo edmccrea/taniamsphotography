@@ -3,13 +3,20 @@ import type { PageServerLoad } from "./$types";
 
 import { DATO_API_KEY } from "$env/static/private";
 
-export const load = (async ({ request }) => {
-  //TODO fix this mess
-  const url = new URL(request.url);
-  const urlMatch = url.pathname.split("/");
+export const load = (async ({ params }) => {
+  const blogUrl = params.blogUrl;
+  const latestPostsQuery = gql`
+  {
+    allBlogPosts(orderBy: publishDate_DESC, first: 3, filter: {url: {neq: "${blogUrl}"}}) {
+      title
+      url
+    }
+  }
+`;
+
   const query = gql`
   {
-    blogPost(filter: {url: {eq: "${urlMatch[2]}"}}) {
+    blogPost(filter: {url: {eq: "${blogUrl}"}}) {
       title
       category
       content {
@@ -49,7 +56,13 @@ export const load = (async ({ request }) => {
     }
   }
 `;
-  return await getBlogData(query);
+
+  const blogPost = await getBlogData(query);
+  const latestPosts = await getLatestPosts(latestPostsQuery);
+  return {
+    blogPost,
+    latestPosts,
+  };
 }) satisfies PageServerLoad;
 
 async function getBlogData(query: string) {
@@ -60,6 +73,22 @@ async function getBlogData(query: string) {
     },
   });
 
-  const data: App.BlogPost = await graphQLClient.request(query);
-  return data;
+  const { blogPost } = (await graphQLClient.request(query)) as {
+    blogPost: App.BlogPost;
+  };
+  return blogPost;
 }
+
+const getLatestPosts = async (query: string) => {
+  const graphQLClient = new GraphQLClient("https://graphql.datocms.com/", {
+    headers: {
+      "content-type": "application/json",
+      authorization: `Bearer ${DATO_API_KEY}`,
+    },
+  });
+
+  const { allBlogPosts } = (await graphQLClient.request(query)) as {
+    allBlogPosts: App.BlogPost[];
+  };
+  return allBlogPosts;
+};

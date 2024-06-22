@@ -9,6 +9,8 @@
   export let data: PageData;
 
   const blogPost: App.BlogPost = data.blogPost;
+  const latestPosts: App.BlogPost[] = data.latestPosts;
+  $: console.log(blogPost)
 </script>
 
 <svelte:head>
@@ -40,6 +42,16 @@
   {/each}
 
   <a href="/blog">Read more posts like this...</a>
+</div>
+
+<div class="blog-links">
+  <h2>Most recent blogs</h2>
+  {#each latestPosts as post}
+      <a href={`/blog/${post.url}`}>
+        <p>{post.title}</p>
+      </a>
+  {/each}
+
 </div>
 
 <style>
@@ -80,6 +92,11 @@
     }
     p {
       font-size: 14px;
+    }
+
+    .blog-links {
+      margin-top: 3rem;
+      margin-left: 2rem;
     }
   }
 </style>
