@@ -42,7 +42,7 @@
       </svg>
     </li>
     {#if seasonsOpen}
-      <ul class="seasons-list" transition:slide|local>
+      <ul class="seasons-list" transition:slide>
         {#each customPages as page}
           <li>
             <a href={`/${page.url}`}>{page.title}</a>

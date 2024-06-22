@@ -17,7 +17,7 @@
 <svelte:window bind:innerWidth={width} />
 {#if galleryData}
   {#key pageType}
-    <div class="gallery-wrapper" in:fade>
+    <div class="gallery-wrapper" in:fade|global>
       <h1>{galleryData.title}.</h1>
 
       {#if width < 768}

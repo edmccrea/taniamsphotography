@@ -29,7 +29,7 @@
       class="lightbox"
       on:click|stopPropagation
       on:keyup|stopPropagation
-      transition:fade={{ duration: 150 }}
+      transition:fade|global={{ duration: 150 }}
     >
       <button aria-label="close" on:click={closeModal}
         ><svg

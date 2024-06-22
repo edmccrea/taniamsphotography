@@ -26,7 +26,7 @@
     <button
       aria-label="close"
       class="close-nav"
-      in:fade
+      in:fade|global
       on:click={() => (showNav = false)}
       on:keyup={() => (showNav = false)}
       ><svg
@@ -45,7 +45,7 @@
         />
       </svg></button
     >
-    <nav in:fade>
+    <nav in:fade|global>
       <ul class="nav-items">
         <li>
           <a aria-label="home" href="/">Home</a>
@@ -78,7 +78,7 @@
           </svg>
         </li>
         {#if seasonsOpen}
-          <ul class="seasons-list" transition:slide|local>
+          <ul class="seasons-list" transition:slide>
             {#each customPages as page}
               <li>
                 <a aria-label={page.title} href={page.url}>{page.title}</a>

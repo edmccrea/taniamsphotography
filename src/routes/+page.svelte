@@ -15,7 +15,7 @@
   <meta property="og:type" content="website" />
 </svelte:head>
 
-<div class="image-gallery" in:fade>
+<div class="image-gallery" in:fade|global>
   {#each columns as column}
     <div class="column">
       {#each column.images as image}
