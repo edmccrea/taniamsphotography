@@ -15,12 +15,18 @@ export const load = (async ({ request }) => {
       content {
         ... on ImageBlockRecord {
           image {
-            responsiveImage(imgixParams: { auto: format, w: "700", q: "45" }) {
+            responsiveImage(imgixParams: { auto: format, w: "1400", q: "100" }) {
               base64
               bgColor
               src
               srcSet
+              width
+              height
+              aspectRatio
+              alt
+              title
             }
+            blurUpThumb
           }
           caption
           id

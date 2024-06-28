@@ -1,21 +1,24 @@
 <script lang="ts">
+  import { Image } from "@datocms/svelte";
   export let imageBlockData: any;
 </script>
 
 <div class="image-block">
-  <img src={imageBlockData.image.responsiveImage.src} alt="" />
+  <div class="image-item">
+    <Image data={imageBlockData.image.responsiveImage} />
+    </div>
   {#if imageBlockData.caption}
     <p>{imageBlockData.caption}</p>
   {/if}
 </div>
 
 <style>
-  img {
-    width: 100%;
-    margin-bottom: 0.5rem;
+  .image-item :global(div) {
+    border-radius: 3px;
   }
 
   p {
+    margin-top: 0.5rem;
     font-size: 14px;
     text-align: center;
     color: var(--color-gray-600);
