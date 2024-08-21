@@ -37,7 +37,7 @@
     object-fit: cover;
     width: 100%;
     height: 100%;
-    transition: all ease-in-out 300ms;
+    transition: all ease-in-out 200ms;
   }
 
   .card:hover img {
