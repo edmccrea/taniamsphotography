@@ -34,7 +34,7 @@
   }
 </script>
 
-<div class="contact-wrapper" in:fade|global>
+<div class="contact-wrapper">
   {#if formSubmitted || loading}
     <div class="submitted" in:fade|global>
       <h1>Thanks.</h1>

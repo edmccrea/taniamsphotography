@@ -8,18 +8,19 @@
   }
 </script>
 
-<div class="card" on:click={goToPost} on:keyup={goToPost}>
+<button class="card" on:click={goToPost}>
   <div class="img-container">
     <img src={cardData.cardImage.responsiveImage.src} alt="" />
   </div>
   <h3>{cardData.title}</h3>
   <p>{cardData.publishDate}</p>
-</div>
+</button>
 
 <style>
   .card {
     display: flex;
     flex-direction: column;
+    text-align: left;
     cursor: pointer;
     width: 325px;
     max-height: 350px;
@@ -45,12 +46,14 @@
   }
 
   h3 {
-    font-size: 24px;
+    font-size: 18px;
     font-weight: 500;
     padding: 0.5rem 0;
     font-family: "Poppins", sans-serif;
+    line-height: 1.3;
   }
   p {
-    font-size: 14px;
+    font-size: 12px;
+    color: var(--color-gray-500)
   }
 </style>

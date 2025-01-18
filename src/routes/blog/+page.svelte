@@ -7,7 +7,7 @@
   export let data: PageData;
 </script>
 
-<div class="blog-wrapper" in:fade|global>
+<div class="blog-wrapper">
   <h1>Blogs</h1>
   <div class="cards">
     {#each data.allBlogPosts as post}

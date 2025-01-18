@@ -21,7 +21,7 @@
   <meta property="og:type" content="website" />
 </svelte:head>
 
-<div class="post-wrapper" in:fade|global>
+<div class="post-wrapper">
   <div class="title">
     <h1>{blogPost.title}</h1>
     <p>by Tania McCrea Steele &#183; {blogPost.publishDate}</p>

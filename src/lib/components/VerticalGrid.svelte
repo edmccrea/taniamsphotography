@@ -23,7 +23,7 @@
   }
 </script>
 
-<div class="image-gallery" in:fade|global>
+<div class="image-gallery">
   {#each columns as column}
     <div class="column">
       {#each column.images as image, index}

@@ -13,7 +13,7 @@
 </script>
 
 <div class="about-container">
-  <div class="about-wrapper" in:fade|global>
+  <div class="about-wrapper">
     <div class="image-wrapper">
       <Image data={about.profileImage.responsiveImage} />
     </div>
