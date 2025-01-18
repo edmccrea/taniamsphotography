@@ -9,7 +9,7 @@
 </script>
 
 <svelte:head>
-  <meta property="og:image" content="./tms-site.png" />
+  <meta property="og:image" content="./tms-site.jpg" />
   <meta property="og:title" content="Tania McCrea Steele Photography" />
   <meta property="og:url" content="https://www.taniamccreasteele.com" />
   <meta property="og:type" content="website" />
