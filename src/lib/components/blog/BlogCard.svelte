@@ -1,10 +1,15 @@
 <script lang="ts">
-  import { goto } from "$app/navigation";
+  import { goto } from '$app/navigation';
+  import type { BlogPost } from '../../../types';
+  import { createEventDispatcher } from 'svelte';
 
-  export let cardData: any;
+  export let cardData: BlogPost;
 
-  function goToPost() {
-    goto(`/blog/${cardData.url}`);
+  const dispatch = createEventDispatcher<{ click: null }>();
+
+  async function goToPost() {
+    await goto(`/blog/${cardData.url}`);
+    dispatch('click');
   }
 </script>
 
@@ -22,8 +27,9 @@
     flex-direction: column;
     text-align: left;
     cursor: pointer;
-    width: 325px;
+    width: 100%;
     max-height: 350px;
+    min-height: 350px;
     color: var(--color-gray-700);
   }
 
@@ -34,6 +40,7 @@
     height: 70%;
     border-radius: 4px;
   }
+
   img {
     object-fit: cover;
     width: 100%;
@@ -48,12 +55,13 @@
   h3 {
     font-size: 18px;
     font-weight: 500;
-    padding: 0.5rem 0;
-    font-family: "Poppins", sans-serif;
+    padding: 0.5rem 0 0.25rem;
+    font-family: 'Poppins', sans-serif;
     line-height: 1.3;
   }
+
   p {
     font-size: 12px;
-    color: var(--color-gray-500)
+    color: var(--color-gray-500);
   }
 </style>

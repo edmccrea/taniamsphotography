@@ -1,7 +1,8 @@
-import { gql, GraphQLClient } from "graphql-request";
-import type { PageServerLoad } from "./$types";
+import { gql, GraphQLClient } from 'graphql-request';
+import type { PageServerLoad } from './$types';
+import type { BlogPost } from '../../types';
 
-import { DATO_API_KEY } from "$env/static/private";
+import { DATO_API_KEY } from '$env/static/private';
 
 export const load = (async () => {
   return await getBlogCardData();
@@ -29,13 +30,13 @@ const query = gql`
 `;
 
 async function getBlogCardData() {
-  const graphQLClient = new GraphQLClient("https://graphql.datocms.com/", {
+  const graphQLClient = new GraphQLClient('https://graphql.datocms.com/', {
     headers: {
-      "content-type": "application/json",
+      'content-type': 'application/json',
       authorization: `Bearer ${DATO_API_KEY}`,
     },
   });
 
-  const data: App.BlogPost[] = await graphQLClient.request(query);
+  const data: { allBlogPosts: BlogPost[] } = await graphQLClient.request(query);
   return data;
 }

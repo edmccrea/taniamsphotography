@@ -1,14 +1,12 @@
 <script lang="ts">
-  import { fade } from "svelte/transition";
-
-  import type { PageData } from "./$types";
-  import BlogCard from "$lib/components/blog/BlogCard.svelte";
+  import type { PageData } from './$types';
+  import BlogCard from '$lib/components/blog/BlogCard.svelte';
 
   export let data: PageData;
 </script>
 
 <div class="blog-wrapper">
-  <h1>Blogs</h1>
+  <h1>Blogs.</h1>
   <div class="cards">
     {#each data.allBlogPosts as post}
       <BlogCard cardData={post} />
@@ -30,19 +28,15 @@
   }
 
   .cards {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(325px, 1fr));
     gap: 1rem;
+    width: 100%;
   }
 
   @media (min-width: 768px) {
     .blog-wrapper {
       margin-top: 3rem;
-    }
-
-    .cards {
-      flex-direction: row;
-      flex-wrap: wrap;
     }
   }
 </style>
