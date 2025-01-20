@@ -1,10 +1,9 @@
 <script lang="ts">
-  import { fade } from "svelte/transition";
-  import type { PageData } from "./$types";
+  import type { PageData } from './$types';
 
-  import HorizontalGrid from "$lib/components/HorizontalGrid.svelte";
-  import VerticalGrid from "$lib/components/VerticalGrid.svelte";
-  import Showcase from "$lib/components/Showcase.svelte";
+  import HorizontalGrid from '$lib/components/HorizontalGrid.svelte';
+  import VerticalGrid from '$lib/components/VerticalGrid.svelte';
+  import Showcase from '$lib/components/Showcase.svelte';
 
   export let data: PageData;
 
@@ -22,9 +21,9 @@
 
       {#if width < 768}
         <VerticalGrid images={galleryData.images} />
-      {:else if galleryData.displayType === "horizontal"}
+      {:else if galleryData.displayType === 'horizontal'}
         <HorizontalGrid images={galleryData.images} />
-      {:else if galleryData.displayType === "vertical"}
+      {:else if galleryData.displayType === 'vertical'}
         <VerticalGrid images={galleryData.images} />
       {:else}
         <Showcase images={galleryData.images} />

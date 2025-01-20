@@ -1,13 +1,13 @@
-import { gql, GraphQLClient } from "graphql-request";
-import type { PageServerLoad } from "./$types";
+import { gql, GraphQLClient } from 'graphql-request';
+import type { PageServerLoad } from './$types';
 
-import { DATO_API_KEY, DATO_CONNECTION_URL } from "$env/static/private";
+import { DATO_API_KEY, DATO_CONNECTION_URL } from '$env/static/private';
 
-export const load = (async ({ url }) => {
-  const pagePath = url.pathname.slice(1);
-  const galleryCollection = await getGalleryCollection(pagePath);
+export const load = (async ({ url, params }) => {
+  const page = params.galleryName;
+  const galleryCollection = await getGalleryCollection(page);
   return {
-    pageType: url.pathname.slice(1),
+    pageType: page,
     ...galleryCollection,
   };
 }) satisfies PageServerLoad;
@@ -39,14 +39,12 @@ const query = gql`
 async function getGalleryCollection(pagePath: string) {
   const graphQLClient = new GraphQLClient(DATO_CONNECTION_URL, {
     headers: {
-      "content-type": "application/json",
+      'content-type': 'application/json',
       authorization: `Bearer ${DATO_API_KEY}`,
     },
     body: JSON.stringify({ query, variables: { pagePath } }),
   });
 
-  const data: App.SiteData["galleryCollection"] = await graphQLClient.request(
-    query
-  );
+  const data: App.SiteData['galleryCollection'] = await graphQLClient.request(query);
   return data;
 }

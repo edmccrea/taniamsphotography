@@ -3,13 +3,11 @@ import type { PageServerLoad } from './$types';
 import type { BlogPost } from '../../../types';
 import { DATO_API_KEY } from '$env/static/private';
 
-export const load = (async ({ request }) => {
-  //TODO fix this mess
-  const url = new URL(request.url);
-  const urlMatch = url.pathname.split('/');
+export const load = (async ({ params }) => {
+  const blogTitle = params.blogTitle;
   const allBlogPostsQuery = gql`
     {
-      allBlogPosts(filter: {url: {neq: "${urlMatch[2]}"}} orderBy: publishDate_DESC first: 4) {
+      allBlogPosts(filter: {url: {neq: "${blogTitle}"}} orderBy: publishDate_DESC first: 4) {
         title
         category
         excerpt
@@ -27,9 +25,10 @@ export const load = (async ({ request }) => {
       }
     }
   `;
-  const query = gql`
+
+  const blogPostQuery = gql`
   {
-    blogPost(filter: {url: {eq: "${urlMatch[2]}"}}) {
+    blogPost(filter: {url: {eq: "${blogTitle}"}}) {
       title
       category
       content {
@@ -75,7 +74,7 @@ export const load = (async ({ request }) => {
     }
   }
 `;
-  return await getBlogData(query, allBlogPostsQuery);
+  return await getBlogData(blogPostQuery, allBlogPostsQuery);
 }) satisfies PageServerLoad;
 
 async function getBlogData(query: string, allBlogPostsQuery: string) {

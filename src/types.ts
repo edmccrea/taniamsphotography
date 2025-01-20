@@ -34,6 +34,15 @@ export interface Image {
   blurThumb: string;
   responsiveImage: {
     src: string;
+    width: number;
+    height: number;
+    aspectRatio: number;
+    alt: string | null;
+    base64: string;
+    sizes: string;
+    srcSet: string;
+    webpSrcSet: string;
+    title: string | null;
   };
 }
 
