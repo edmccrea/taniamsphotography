@@ -1,11 +1,15 @@
 <script lang="ts">
-  import { fade } from "svelte/transition";
-  import { Image } from "@datocms/svelte";
+  import { Image as DatoImage } from '@datocms/svelte';
+  import type { Image } from '../../types';
+  import { lightbox } from '$lib/stores/lightbox';
 
-  import { lightbox } from "$lib/stores/lightbox";
+  export let images: Image[];
 
-  export let images: App.Image[];
-  const columns = images.reduce((acc, image, index) => {
+  interface Column {
+    images: Image[];
+  }
+
+  const columns = images.reduce<Column[]>((acc, image, index) => {
     const columnIndex = index % 3;
     if (!acc[columnIndex]) {
       acc[columnIndex] = { images: [] };
@@ -14,10 +18,10 @@
     return acc;
   }, []);
 
-  function openLightbox(column: App.Image[], index: number) {
+  function openLightbox(images: Image[], index: number) {
     lightbox.set({
       open: true,
-      images: column.images,
+      images,
       currentImageIndex: index,
     });
   }
@@ -27,13 +31,9 @@
   {#each columns as column}
     <div class="column">
       {#each column.images as image, index}
-        <div
-          class="image-item"
-          on:click={() => openLightbox(column, index)}
-          on:keyup={() => openLightbox(column, index)}
-        >
-          <Image data={image.responsiveImage} />
-        </div>
+        <button class="image-item" on:click={() => openLightbox(column.images, index)}>
+          <DatoImage data={image.responsiveImage} />
+        </button>
       {/each}
     </div>
   {/each}
@@ -50,6 +50,10 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
+  }
+
+  .image-item {
+    padding: 0;
   }
 
   .image-item :global(div) {

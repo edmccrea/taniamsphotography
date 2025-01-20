@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { slide } from "svelte/transition";
-  import Footer from "./Footer.svelte";
+  import { slide } from 'svelte/transition';
+  import Footer from './Footer.svelte';
   let seasonsOpen = false;
 
   export let customSectionTitle: string;
@@ -17,35 +17,33 @@
     <li>
       <a href="/about">About</a>
     </li>
-    <li
-      class="seasons-dropdown"
-      on:click={() => (seasonsOpen = !seasonsOpen)}
-      on:keyup={() => (seasonsOpen = !seasonsOpen)}
-    >
-      {customSectionTitle}
-      <svg
-        class:open={seasonsOpen}
-        class="seasons-arrow"
-        width="18"
-        height="18"
-        viewBox="0 0 24 24"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M19 9L12 16L5 9"
-          stroke="#4b5563"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        />
-      </svg>
-    </li>
+    <button on:click={() => (seasonsOpen = !seasonsOpen)}>
+      <li class="seasons-dropdown">
+        {customSectionTitle}
+        <svg
+          class:open={seasonsOpen}
+          class="seasons-arrow"
+          width="18"
+          height="18"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M19 9L12 16L5 9"
+            stroke="#4b5563"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </li>
+    </button>
     {#if seasonsOpen}
       <ul class="seasons-list" transition:slide>
         {#each customPages as page}
           <li>
-            <a href={`/${page.url}`}>{page.title}</a>
+            <a href={`/gallery/${page.url}`}>{page.title}</a>
           </li>
         {/each}
       </ul>
@@ -78,7 +76,7 @@
 
   .logo {
     margin: 56px 0 40px;
-    font-family: "Playfair Display", serif;
+    font-family: 'Playfair Display', serif;
     font-weight: 700;
     font-size: 24px;
     color: var(--color-gray-700);
@@ -92,6 +90,11 @@
     align-items: center;
   }
 
+  button {
+    text-align: left;
+    padding: 0;
+  }
+
   a {
     margin-bottom: 22px;
   }
@@ -99,7 +102,7 @@
   ul a:after {
     transition: all ease-in-out 300ms;
     background: none repeat scroll 0 0 var(--color-gray-600);
-    content: "";
+    content: '';
     display: block;
     height: 1px;
     width: 0;

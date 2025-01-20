@@ -1,11 +1,20 @@
 <script lang="ts">
-  import { fade } from "svelte/transition";
-  import type { PageData } from "./$types";
-  import { Image } from "@datocms/svelte";
+  import type { PageData } from './$types';
+  import { Image as DatoImage } from '@datocms/svelte';
+  import { lightbox } from '$lib/stores/lightbox';
+  import type { Image } from '../types';
 
   export let data: PageData;
 
   const columns = data.startPageCollection.startPageGallery;
+
+  function openLightbox(images: Image[], index: number) {
+    lightbox.set({
+      open: true,
+      images,
+      currentImageIndex: index,
+    });
+  }
 </script>
 
 <svelte:head>
@@ -18,10 +27,10 @@
 <div class="image-gallery">
   {#each columns as column}
     <div class="column">
-      {#each column.images as image}
-        <div class="image-item">
-          <Image data={image.responsiveImage} />
-        </div>
+      {#each column.images as image, i}
+        <button class="image-item" on:click={() => openLightbox(column.images, i)}>
+          <DatoImage data={image.responsiveImage} />
+        </button>
       {/each}
     </div>
   {/each}
@@ -43,6 +52,7 @@
 
   .image-item {
     width: 100%;
+    padding: 0;
   }
 
   .image-item :global(div) {
