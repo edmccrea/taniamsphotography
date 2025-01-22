@@ -39,7 +39,9 @@
         <button onclick={previousImage}>
           <ArrowLeft class="size-6 text-foreground" />
         </button>
-        <p class="text-sm italic font-light flex-1 text-center min-w-[100px]">
+        <p
+          class="text-sm italic font-light flex-1 text-center min-w-[100px] text-[var(--color-gray-700)]"
+        >
           {currentImageIndex + 1} of {images.length}
         </p>
         <button onclick={nextImage}>
