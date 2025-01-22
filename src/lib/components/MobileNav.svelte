@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { navigating } from "$app/stores";
-  import { fade, slide } from "svelte/transition";
+  import { navigating } from '$app/stores';
+  import { fade, slide } from 'svelte/transition';
 
   export let customSectionTitle: string;
   export let customPages: { title: string; url: string }[];
@@ -23,12 +23,7 @@
 
 {#if showNav}
   <div class="nav-wrapper">
-    <button
-      aria-label="close"
-      class="close-nav"
-      in:fade|global
-      on:click={() => (showNav = false)}
-      on:keyup={() => (showNav = false)}
+    <button aria-label="close" class="close-nav" in:fade|global onclick={() => (showNav = false)}
       ><svg
         width="24"
         height="24"
@@ -53,35 +48,33 @@
         <li>
           <a aria-label="about" href="/about">About</a>
         </li>
-        <li
-          class="seasons-dropdown"
-          on:click={() => (seasonsOpen = !seasonsOpen)}
-          on:keyup={() => (seasonsOpen = !seasonsOpen)}
-        >
-          {customSectionTitle}
-          <svg
-            class:open={seasonsOpen}
-            class="seasons-arrow"
-            width="18"
-            height="18"
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M19 9L12 16L5 9"
-              stroke="#4b5563"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-          </svg>
-        </li>
+        <button onclick={() => (seasonsOpen = !seasonsOpen)} class="dropdown-button">
+          <li class="seasons-dropdown">
+            {customSectionTitle}
+            <svg
+              class:open={seasonsOpen}
+              class="seasons-arrow"
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M19 9L12 16L5 9"
+                stroke="#4b5563"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </li>
+        </button>
         {#if seasonsOpen}
           <ul class="seasons-list" transition:slide>
             {#each customPages as page}
               <li>
-                <a aria-label={page.title} href={page.url}>{page.title}</a>
+                <a aria-label={page.title} href={`/gallery/${page.url}`}>{page.title}</a>
               </li>
             {/each}
           </ul>
@@ -106,7 +99,7 @@
   <header>
     <a href="/" class="logo">Tania<br /> McCrea Steele</a>
 
-    <button aria-label="menu" on:click={() => (showNav = !showNav)}
+    <button aria-label="menu" onclick={() => (showNav = !showNav)}
       ><svg
         width="24"
         height="24"
@@ -134,7 +127,7 @@
     align-items: center;
   }
   .logo {
-    font-family: "Playfair Display", serif;
+    font-family: 'Playfair Display', serif;
     font-weight: 500;
     font-size: 24px;
     color: var(--color-gray-700);
@@ -152,7 +145,7 @@
     left: 0;
     height: 100vh;
     width: 100vw;
-    background-color: #fff;
+    background-color: #fffff2;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -194,5 +187,11 @@
     position: absolute;
     top: 1.5rem;
     right: 0.5rem;
+  }
+
+  .dropdown-button {
+    width: 100%;
+    text-align: left;
+    padding: 0;
   }
 </style>

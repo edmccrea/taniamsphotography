@@ -18,20 +18,27 @@
     return acc;
   }, []);
 
-  function openLightbox(images: Image[], index: number) {
+  function openLightbox(index: number) {
     lightbox.set({
       open: true,
       images,
       currentImageIndex: index,
     });
   }
+
+  function getAbsoluteIndex(columnIndex: number, imageIndex: number): number {
+    return columnIndex + imageIndex * 3;
+  }
 </script>
 
 <div class="image-gallery">
-  {#each columns as column}
+  {#each columns as column, columnIndex}
     <div class="column">
-      {#each column.images as image, index}
-        <button class="image-item" on:click={() => openLightbox(column.images, index)}>
+      {#each column.images as image, imageIndex}
+        <button
+          class="image-item"
+          on:click={() => openLightbox(getAbsoluteIndex(columnIndex, imageIndex))}
+        >
           <DatoImage data={image.responsiveImage} />
         </button>
       {/each}

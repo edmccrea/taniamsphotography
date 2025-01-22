@@ -1,110 +1,74 @@
 <script lang="ts">
-  import { Image } from "@datocms/svelte";
-  import { fade } from "svelte/transition";
+  import { Image as DatoImage } from '@datocms/svelte';
+  import { Dialog } from 'bits-ui';
+  import { X, ArrowRight, ArrowLeft } from 'lucide-svelte';
+  import type { Image } from '../../types';
 
-  export let images: App.Image[];
+  export let images: Image[];
   export let open = false;
   export let currentImageIndex = 0;
 
-  let currentImage = images[currentImageIndex];
+  $: currentImage = images[currentImageIndex];
 
-  function closeModal() {
-    open = false;
+  function nextImage() {
+    currentImageIndex = (currentImageIndex + 1) % images.length;
+  }
+
+  function previousImage() {
+    currentImageIndex = (currentImageIndex - 1 + images.length) % images.length;
   }
 </script>
 
-<svelte:head>
-  {#if open}
-    <style>
-      body {
-        overflow: hidden !important;
-      }
-    </style>
-  {/if}
-</svelte:head>
-
-{#if open}
-  <div class="lightbox-bg" on:click={closeModal} on:keyup={closeModal}>
-    <div
-      class="lightbox"
-      on:click|stopPropagation
-      on:keyup|stopPropagation
-      transition:fade|global={{ duration: 150 }}
+<Dialog.Root bind:open>
+  <Dialog.Portal>
+    <Dialog.Overlay
+      class="fixed inset-0 z-50 bg-white/80 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0"
+    />
+    <Dialog.Content
+      class="fixed left-[50%] top-[50%] z-50 w-full max-w-[94%] translate-x-[-50%] translate-y-[-50%] rounded-card-sm border bg-background px-4 py-16 sm:p-16 shadow-popover outline-none data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%] sm:max-w-[800px] sm:max-h-[80%] md:w-full flex flex-col"
     >
-      <button aria-label="close" on:click={closeModal}
-        ><svg
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M6 18L18 6M6 6L18 18"
-            stroke="#4b5563"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          />
-        </svg></button
-      >
-      <div class="lightbox-image-container">
-        <Image data={currentImage.responsiveImage} />
+      <div class="flex-1 overflow-hidden">
+        <div class="h-[50vh] sm:h-[60vh] flex items-center lightbox-image">
+          <DatoImage data={currentImage.responsiveImage} />
+        </div>
       </div>
-    </div>
-  </div>
-{/if}
+
+      <div
+        class="absolute bottom-5 inset-x-0 mx-auto flex justify-between items-center max-w-[300px]"
+      >
+        <button onclick={previousImage}>
+          <ArrowLeft class="size-6 text-foreground" />
+        </button>
+        <p class="text-sm italic font-light flex-1 text-center min-w-[100px]">
+          {currentImageIndex + 1} of {images.length}
+        </p>
+        <button onclick={nextImage}>
+          <ArrowRight class="size-6 text-foreground" />
+        </button>
+      </div>
+
+      <Dialog.Close
+        class="absolute right-5 top-5 rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground focus-visible:ring-offset-2 focus-visible:ring-offset-background active:scale-98"
+      >
+        <div>
+          <X class="size-5 text-foreground" />
+          <span class="sr-only">Close</span>
+        </div>
+      </Dialog.Close>
+    </Dialog.Content>
+  </Dialog.Portal>
+</Dialog.Root>
 
 <style>
-  .lightbox-bg {
-    background-color: rgba(0, 0, 0, 0.5);
-    position: fixed;
-    top: 0;
-    left: 0;
+  .lightbox-image :global(div) {
     width: 100%;
     height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
   }
 
-  .lightbox {
-    width: 95%;
-    height: 50%;
-    background-color: white;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 5px;
-  }
-
-  button {
-    position: absolute;
-    top: 0.5rem;
-    right: 0.5rem;
-  }
-
-  .lightbox-image-container {
-    width: 90%;
-    height: 80%;
-  }
-
-  .lightbox-image-container :global(div) {
+  .lightbox-image :global(img) {
+    width: 100%;
     height: 100%;
-  }
-
-  .lightbox-image-container :global(img) {
-    height: 100% !important;
     object-fit: contain;
-    scale: 100% !important;
-  }
-
-  @media (min-width: 768px) {
-    .lightbox {
-      width: 75%;
-      height: 80%;
-    }
+    object-position: center;
   }
 </style>

@@ -7,11 +7,14 @@
   export let data: PageData;
 
   const columns = data.startPageCollection.startPageGallery;
+  const allImages = columns.reduce((acc, column) => {
+    return [...acc, ...column.images];
+  }, [] as Image[]);
 
-  function openLightbox(images: Image[], index: number) {
+  function openLightbox(index: number) {
     lightbox.set({
       open: true,
-      images,
+      images: allImages,
       currentImageIndex: index,
     });
   }
@@ -28,7 +31,13 @@
   {#each columns as column}
     <div class="column">
       {#each column.images as image, i}
-        <button class="image-item" on:click={() => openLightbox(column.images, i)}>
+        {@const absoluteIndex =
+          columns.indexOf(column) === 0
+            ? i
+            : columns
+                .slice(0, columns.indexOf(column))
+                .reduce((acc, col) => acc + col.images.length, 0) + i}
+        <button class="image-item" on:click={() => openLightbox(absoluteIndex)}>
           <DatoImage data={image.responsiveImage} />
         </button>
       {/each}
