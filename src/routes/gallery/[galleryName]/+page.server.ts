@@ -1,5 +1,6 @@
 import { gql, GraphQLClient } from 'graphql-request';
 import type { PageServerLoad } from './$types';
+import type { SiteData } from '../../../types';
 
 import { DATO_API_KEY, DATO_CONNECTION_URL } from '$env/static/private';
 
@@ -45,6 +46,6 @@ async function getGalleryCollection(pagePath: string) {
     body: JSON.stringify({ query, variables: { pagePath } }),
   });
 
-  const data: App.SiteData['galleryCollection'] = await graphQLClient.request(query);
+  const data: SiteData['galleryCollection'] = await graphQLClient.request(query);
   return data;
 }
