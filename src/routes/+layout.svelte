@@ -1,25 +1,26 @@
 <script lang="ts">
-  import { get } from "svelte/store";
-  import type { PageData } from "./$types";
+  import { get } from 'svelte/store';
+  import type { PageData } from './$types';
 
-  import "../app.css";
-  import { lightbox } from "$lib/stores/lightbox";
-  import Nav from "$lib/components/Nav.svelte";
-  import Lightbox from "$lib/components/Lightbox.svelte";
-  import Footer from "$lib/components/Footer.svelte";
-  import MobileNav from "$lib/components/MobileNav.svelte";
+  import '../app.css';
+  import { lightbox } from '$lib/stores/lightbox';
+  import Nav from '$lib/components/Nav.svelte';
+  import Lightbox from '$lib/components/Lightbox.svelte';
+  import Footer from '$lib/components/Footer.svelte';
+  import MobileNav from '$lib/components/MobileNav.svelte';
+  import type { Image } from '../types';
 
   export let data: PageData;
 
   let showLightbox = false;
   let lightboxImageIndex = 0;
 
-  const customSectionTitle = "Gallery";
-  const customPages = data.allGalleryCollections.map((gallery) => {
+  const customSectionTitle = 'Gallery';
+  const customPages = data.allGalleryCollections.map(gallery => {
     return { title: gallery.title, url: gallery.url };
   });
 
-  let lightboxImages: App.Image[];
+  let lightboxImages: Image[] = [];
 
   function handleLightboxChange() {
     const lightboxValue = get(lightbox);
@@ -42,13 +43,7 @@
   />
 </svelte:head>
 
-{#if showLightbox}
-  <Lightbox
-    bind:open={showLightbox}
-    images={lightboxImages}
-    currentImageIndex={lightboxImageIndex}
-  />
-{/if}
+<Lightbox bind:open={showLightbox} images={lightboxImages} currentImageIndex={lightboxImageIndex} />
 
 <div class="mobile-nav">
   <MobileNav {customSectionTitle} {customPages} />
