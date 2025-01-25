@@ -81,4 +81,13 @@
     object-fit: contain;
     object-position: center;
   }
+
+  .lightbox-image :global(img) {
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    object-fit: contain;
+    object-position: center;
+  }
 </style>
