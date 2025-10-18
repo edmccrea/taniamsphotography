@@ -1,5 +1,6 @@
 <script lang="ts">
   import { goto } from '$app/navigation';
+  import FramingExamples from '$lib/components/FramingExamples.svelte';
 
   const printRatios = [
     {
@@ -118,9 +119,15 @@
         Thank you for supporting my photography—your purchase helps me continue shooting by funding
         the equipment I need to capture more moments.
       </p>
+
+      <div class="header-actions">
+        <a href="#pricing-list" class="cta-button">View Prices</a>
+        <button class="cta-button secondary" on:click={goToContact}>Contact Me</button>
+      </div>
     </header>
 
-    <div class="pricing-section">
+    <FramingExamples />
+    <div class="pricing-section" id="pricing-list">
       <h2>Photography Print & Framed Print Price List</h2>
       <p class="size-note">All sizes are listed in inches, with centimetre equivalents</p>
 
@@ -175,7 +182,7 @@
       <h2>Interested?</h2>
 
       <div class="contact-alternative">
-        <p>ahdoahf</p>
+        <p></p>
         <button class="contact-btn" on:click={goToContact}>Contact Me</button>
       </div>
     </div>
@@ -183,6 +190,9 @@
 </div>
 
 <style>
+  :global(html) {
+    scroll-behavior: smooth;
+  }
   .prints-container {
     width: 100%;
     height: 100%;
@@ -248,6 +258,40 @@
     font-size: 14px;
     line-height: 1.5;
     margin-bottom: 1rem;
+  }
+
+  .cta-button {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    border: 1px solid transparent;
+  }
+
+  .cta-button {
+    background-color: var(--color-gray-800, #2d3748);
+    color: white;
+    border-color: var(--color-gray-800, #2d3748);
+  }
+
+  .cta-button:hover {
+    background-color: var(--color-gray-700, #4a5568);
+    border-color: var(--color-gray-700, #4a5568);
+  }
+
+  .cta-button.secondary {
+    background-color: transparent;
+    color: var(--color-gray-700, #4a5568);
+    border-color: var(--color-gray-600, #718096);
+  }
+
+  .cta-button.secondary:hover {
+    background-color: var(--color-gray-100, #f7fafc);
+    color: var(--color-gray-800, #2d3748);
   }
 
   .quality-info strong {
@@ -330,7 +374,7 @@
   }
 
   .contact-btn {
-    padding: 0.75rem 1.5rem;
+    padding: 0.5rem 1rem;
     border: 1px solid var(--color-gray-600);
     color: var(--color-gray-600);
     background: white;
