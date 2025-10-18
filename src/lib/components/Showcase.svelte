@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Image } from "@datocms/svelte";
+  import { Image } from '@datocms/svelte';
 
   export let images: App.Image[];
 
@@ -25,49 +25,51 @@
   }
 </script>
 
-<div class="showcase-wrapper">
-  <div class="showcase-image">
-    <button aria-label="previous" on:click={() => moveCarousel(-1)}>
-      <svg
-        width="32"
-        height="32"
-        viewBox="0 0 24 24"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M15 19L8 12L15 5"
-          stroke="#4b5563"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        />
-      </svg>
-    </button>
-    {#key currentImageIndex}
-      <div class="image-container">
-        <Image data={currentImage.responsiveImage} />
-      </div>
-    {/key}
-    <button aria-label="next" on:click={() => moveCarousel(1)}>
-      <svg
-        width="32"
-        height="32"
-        viewBox="0 0 24 24"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M9 5L16 12L9 19"
-          stroke="#4b5563"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        />
-      </svg>
-    </button>
+{#if images.length}
+  <div class="showcase-wrapper">
+    <div class="showcase-image">
+      <button aria-label="previous" on:click={() => moveCarousel(-1)}>
+        <svg
+          width="32"
+          height="32"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M15 19L8 12L15 5"
+            stroke="#4b5563"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </button>
+      {#key currentImageIndex}
+        <div class="image-container">
+          <Image data={currentImage.responsiveImage} />
+        </div>
+      {/key}
+      <button aria-label="next" on:click={() => moveCarousel(1)}>
+        <svg
+          width="32"
+          height="32"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M9 5L16 12L9 19"
+            stroke="#4b5563"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </button>
+    </div>
   </div>
-</div>
+{/if}
 
 <style>
   .showcase-wrapper {
