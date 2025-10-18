@@ -83,13 +83,6 @@
           <a aria-label="blog" href="/blog">Blog</a>
         </li>
         <li>
-          <a
-            aria-label="shop"
-            href="https://www.etsy.com/uk/shop/TaniaMcCreaSteele?fbclid=IwAR28D03u4blB0DNj-Kr15L6__u1AtRgMku1Y_3Lbrfv4KilN0joIljymy44"
-            target="_blank">Shop</a
-          >
-        </li>
-        <li>
           <a aria-label="contact" href="/contact">Contact</a>
         </li>
       </ul>
