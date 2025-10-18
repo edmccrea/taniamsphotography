@@ -77,6 +77,7 @@
     font-weight: 700;
     font-size: 24px;
     color: var(--color-gray-700);
+    line-height: 0.9;
   }
 
   li {
