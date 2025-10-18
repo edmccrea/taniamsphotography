@@ -80,6 +80,9 @@
           </ul>
         {/if}
         <li>
+          <a aria-label="shop" href="/shop">Shop</a>
+        </li>
+        <li>
           <a aria-label="blog" href="/blog">Blog</a>
         </li>
         <li>

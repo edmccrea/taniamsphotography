@@ -49,6 +49,9 @@
       </ul>
     {/if}
     <li>
+      <a href="/shop">Shop</a>
+    </li>
+    <li>
       <a href="/blog">Blog</a>
     </li>
     <li>
