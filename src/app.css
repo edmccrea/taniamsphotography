@@ -122,4 +122,8 @@ button {
     --shadow-card: 0px 2px 0px 1px rgba(0, 0, 0, 0.04);
     --shadow-date-field-focus: 0px 0px 0px 3px rgba(24, 24, 27, 0.17);
   }
+  
+  body {
+    @apply min-h-screen flex flex-col md:flex-row;
+  }
 }

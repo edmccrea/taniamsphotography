@@ -1,5 +1,6 @@
 <script lang="ts">
   import { get } from 'svelte/store';
+  import { page } from '$app/stores';
   import type { PageData } from './$types';
 
   import '../app.css';
@@ -37,78 +38,39 @@
 </script>
 
 <svelte:head>
-  <meta
-    name="keywords"
-    content="Tania McCrea Steele Photography bradford wiltshire somerset photography landscape portrait photo gallery printing"
-  />
+  <link rel="canonical" href={$page.url.href} />
+  {@html `<script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Tania McCrea Steele",
+      "url": "https://www.taniamccreasteele.com",
+      "jobTitle": "Photographer",
+      "description": "Landscape and wildlife photographer from Bradford on Avon, Wiltshire",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Bradford on Avon",
+        "addressRegion": "Wiltshire",
+        "addressCountry": "UK"
+      }
+    }
+  </script>`}
 </svelte:head>
 
 <Lightbox bind:open={showLightbox} images={lightboxImages} currentImageIndex={lightboxImageIndex} />
 
-<div class="mobile-nav">
+<div class="md:hidden">
   <MobileNav {customSectionTitle} {customPages} />
 </div>
 
-<aside>
+<aside class="hidden md:block fixed top-0 left-0 h-full">
   <Nav {customSectionTitle} {customPages} />
 </aside>
 
-<main>
+<main class="ml-0 flex-grow p-4 flex md:w-full md:ml-[343px] md:p-[40px_40px_40px_0]">
   <slot />
 </main>
 
-<div class="mobile-footer">
+<div class="w-full h-[80px] flex justify-center items-center md:hidden">
   <Footer />
 </div>
-
-<style>
-  :global(body) {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-  }
-  aside {
-    display: none;
-  }
-
-  main {
-    margin-left: 0;
-    flex-grow: 1;
-    padding: 1rem;
-    display: flex;
-  }
-
-  .mobile-footer {
-    width: 100%;
-    height: 80px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  @media (min-width: 768px) {
-    :global(body) {
-      flex-direction: row;
-    }
-    aside {
-      display: block;
-      position: fixed;
-      top: 0;
-      left: 0;
-      height: 100%;
-    }
-
-    main {
-      width: 100%;
-      margin-left: 343px;
-      padding: 40px 40px 40px 0;
-    }
-
-    .mobile-nav {
-      display: none;
-    }
-
-    .mobile-footer {
-      display: none;
-    }
-  }
-</style>

@@ -27,9 +27,9 @@
   <meta property="og:type" content="website" />
 </svelte:head>
 
-<div class="image-gallery">
+<div class="flex flex-col gap-[10px] w-full md:flex-row">
   {#each columns as column}
-    <div class="column">
+    <div class="flex flex-col gap-[10px] md:w-1/3">
       {#each column.images as image, i}
         {@const absoluteIndex =
           columns.indexOf(column) === 0
@@ -37,44 +37,10 @@
             : columns
                 .slice(0, columns.indexOf(column))
                 .reduce((acc, col) => acc + col.images.length, 0) + i}
-        <button class="image-item" on:click={() => openLightbox(absoluteIndex)}>
+        <button class="w-full p-0 [&_div]:rounded-[5px]" on:click={() => openLightbox(absoluteIndex)}>
           <DatoImage data={image.responsiveImage} />
         </button>
       {/each}
     </div>
   {/each}
 </div>
-
-<style>
-  .image-gallery {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    width: 100%;
-  }
-
-  .image-gallery .column {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .image-item {
-    width: 100%;
-    padding: 0;
-  }
-
-  .image-item :global(div) {
-    border-radius: 5px;
-  }
-
-  @media only screen and (min-width: 768px) {
-    .image-gallery {
-      flex-direction: row;
-    }
-
-    .image-gallery .column {
-      width: 33%;
-    }
-  }
-</style>

@@ -8,7 +8,7 @@ export interface SiteData {
 export interface StartPageCollection {
   startPageGallery: {
     images: Image[];
-  };
+  }[];
 }
 
 export interface About {
