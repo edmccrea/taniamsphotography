@@ -1,11 +1,11 @@
 <script lang="ts">
-  import { Image } from "@datocms/svelte";
+  import CustomImage from '$lib/components/CustomImage.svelte';
   export let imageBlockData: any;
 </script>
 
 <div class="image-block">
   <div class="image-item">
-    <Image data={imageBlockData.image.responsiveImage} />
+    <CustomImage data={imageBlockData.image.responsiveImage} />
     </div>
   {#if imageBlockData.caption}
     <p>{imageBlockData.caption}</p>

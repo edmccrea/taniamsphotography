@@ -53,20 +53,12 @@ export interface BlogPost {
   publishDate: string;
   id: string;
   url: string;
-  cardImage: {
-    responsiveImage: {
-      src: string;
-    };
-  };
+  cardImage: Image;
   content: BlogContent[];
 }
 
 export interface BlogContent {
-  image?: {
-    responsiveImage: {
-      src: string;
-    };
-  };
+  image?: Image;
   caption?: string;
   id?: string;
   subtitle?: string;

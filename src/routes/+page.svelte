@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { PageData } from './$types';
-  import { Image as DatoImage } from '@datocms/svelte';
+  import CustomImage from '$lib/components/CustomImage.svelte';
   import { lightbox } from '$lib/stores/lightbox';
   import type { Image } from '../types';
 
@@ -38,7 +38,7 @@
                 .slice(0, columns.indexOf(column))
                 .reduce((acc, col) => acc + col.images.length, 0) + i}
         <button class="w-full p-0 [&_div]:rounded-[5px]" on:click={() => openLightbox(absoluteIndex)}>
-          <DatoImage data={image.responsiveImage} />
+          <CustomImage data={image.responsiveImage} />
         </button>
       {/each}
     </div>

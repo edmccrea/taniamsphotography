@@ -55,20 +55,12 @@ declare global {
       publishDate: string;
       id: string;
       url: string;
-      cardImage: {
-        responsiveImage: {
-          src: string;
-        };
-      };
+      cardImage: Image;
       content: BlogContent[];
     }
 
     interface BlogContent {
-      image?: {
-        responsiveImage: {
-          src: string;
-        };
-      };
+      image?: Image;
       caption?: string;
       id?: string;
       subtitle?: string;

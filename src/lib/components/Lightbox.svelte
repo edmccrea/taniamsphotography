@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Image as DatoImage } from '@datocms/svelte';
+  import CustomImage from '$lib/components/CustomImage.svelte';
   import { Dialog } from 'bits-ui';
   import { X, ArrowRight, ArrowLeft } from 'lucide-svelte';
   import type { Image } from '../../types';
@@ -34,7 +34,7 @@
       <div class="flex-1 overflow-hidden">
         <div class="h-[50vh] sm:h-[60vh] flex items-center lightbox-image">
           {#if currentImage}
-            <DatoImage data={currentImage.responsiveImage} />
+            <CustomImage data={currentImage.responsiveImage} />
           {/if}
         </div>
       </div>
