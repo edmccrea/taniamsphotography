@@ -11,6 +11,14 @@
   }
 </script>
 
+<svelte:head>
+  <title>About Tania McCrea Steele | Photographer in Bradford on Avon</title>
+  <meta
+    name="description"
+    content="Learn more about Tania McCrea Steele, a passionate photographer capturing the beauty of Bradford on Avon and beyond."
+  />
+</svelte:head>
+
 <div class="about-container">
   <div class="about-wrapper">
     <div class="image-wrapper">

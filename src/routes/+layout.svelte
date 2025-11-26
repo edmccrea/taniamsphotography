@@ -42,17 +42,24 @@
   {@html `<script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "Person",
-      "name": "Tania McCrea Steele",
+      "@type": "LocalBusiness",
+      "name": "Tania McCrea Steele Photography",
+      "image": "https://www.taniamccreasteele.com/tms-site.jpg",
       "url": "https://www.taniamccreasteele.com",
-      "jobTitle": "Photographer",
-      "description": "Landscape and wildlife photographer from Bradford on Avon, Wiltshire",
+      "telephone": "",
+      "priceRange": "££",
       "address": {
         "@type": "PostalAddress",
         "addressLocality": "Bradford on Avon",
         "addressRegion": "Wiltshire",
         "addressCountry": "UK"
-      }
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 51.347,
+        "longitude": -2.250
+      },
+      "sameAs": []
     }
   </script>`}
 </svelte:head>

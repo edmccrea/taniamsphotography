@@ -21,11 +21,18 @@
 </script>
 
 <svelte:head>
+  <title>Tania McCrea Steele Photography | Bradford on Avon</title>
+  <meta
+    name="description"
+    content="Professional landscape and wildlife photography by Tania McCrea Steele, based in Bradford on Avon, Wiltshire. View the gallery and shop prints."
+  />
   <meta property="og:image" content="./tms-site.jpg" />
-  <meta property="og:title" content="Tania McCrea Steele Photography" />
+  <meta property="og:title" content="Tania McCrea Steele Photography | Bradford on Avon" />
   <meta property="og:url" content="https://www.taniamccreasteele.com" />
   <meta property="og:type" content="website" />
 </svelte:head>
+
+<h1 class="sr-only">Tania McCrea Steele Photography - Bradford on Avon</h1>
 
 <div class="flex flex-col gap-[10px] w-full md:flex-row">
   {#each columns as column}
