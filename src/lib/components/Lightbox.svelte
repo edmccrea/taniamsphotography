@@ -8,17 +8,24 @@
   export let open = false;
   export let currentImageIndex = 0;
 
-  $: currentImage = images.length > 0 ? images[currentImageIndex] : null;
+  let internalIndex = currentImageIndex;
+
+  // Reset internal index when modal opens with new currentImageIndex
+  $: if (open) {
+    internalIndex = currentImageIndex;
+  }
+
+  $: currentImage = images.length > 0 ? images[internalIndex] : null;
 
   function nextImage() {
     if (images.length > 0) {
-      currentImageIndex = (currentImageIndex + 1) % images.length;
+      internalIndex = (internalIndex + 1) % images.length;
     }
   }
 
   function previousImage() {
     if (images.length > 0) {
-      currentImageIndex = (currentImageIndex - 1 + images.length) % images.length;
+      internalIndex = (internalIndex - 1 + images.length) % images.length;
     }
   }
 </script>
@@ -48,7 +55,7 @@
         <p
           class="text-sm italic font-light flex-1 text-center min-w-[100px] text-[var(--color-gray-700)]"
         >
-          {currentImageIndex + 1} of {images.length}
+          {internalIndex + 1} of {images.length}
         </p>
         <button onclick={nextImage}>
           <ArrowRight class="size-6 text-foreground" />
