@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Image as DatoImage } from '@datocms/svelte';
+  import CustomImage from '$lib/components/CustomImage.svelte';
   import type { Image } from '../../types';
   import { lightbox } from '$lib/stores/lightbox';
 
@@ -39,7 +39,7 @@
           class="image-item"
           on:click={() => openLightbox(getAbsoluteIndex(columnIndex, imageIndex))}
         >
-          <DatoImage data={image.responsiveImage} />
+          <CustomImage data={image.responsiveImage} />
         </button>
       {/each}
     </div>

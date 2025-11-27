@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Image } from '@datocms/svelte';
+  import CustomImage from '$lib/components/CustomImage.svelte';
 
   export let images: App.Image[];
 
@@ -47,7 +47,7 @@
       </button>
       {#key currentImageIndex}
         <div class="image-container">
-          <Image data={currentImage.responsiveImage} />
+          <CustomImage data={currentImage.responsiveImage} />
         </div>
       {/key}
       <button aria-label="next" on:click={() => moveCarousel(1)}>

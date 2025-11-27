@@ -10,7 +10,7 @@ declare global {
     interface StartPageCollection {
       startPageGallery: {
         images: Image[];
-      };
+      }[];
     }
 
     interface About {
@@ -36,6 +36,15 @@ declare global {
       blurThumb: string;
       responsiveImage: {
         src: string;
+        width: number;
+        height: number;
+        aspectRatio: number;
+        alt: string | null;
+        base64: string;
+        sizes: string;
+        srcSet: string;
+        webpSrcSet: string;
+        title: string | null;
       };
     }
 
@@ -46,20 +55,12 @@ declare global {
       publishDate: string;
       id: string;
       url: string;
-      cardImage: {
-        responsiveImage: {
-          src: string;
-        };
-      };
+      cardImage: Image;
       content: BlogContent[];
     }
 
     interface BlogContent {
-      image?: {
-        responsiveImage: {
-          src: string;
-        };
-      };
+      image?: Image;
       caption?: string;
       id?: string;
       subtitle?: string;

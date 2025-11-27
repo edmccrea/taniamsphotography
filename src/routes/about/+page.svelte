@@ -1,21 +1,28 @@
 <script lang="ts">
-  import { goto } from "$app/navigation";
-  import { fade } from "svelte/transition";
-  import type { PageData } from "./$types";
-  import { Image } from "@datocms/svelte";
+  import { goto } from '$app/navigation';
+  import type { PageData } from './$types';
+  import CustomImage from '$lib/components/CustomImage.svelte';
 
   export let data: PageData;
   const about = data.about;
 
   function handleClick() {
-    goto("/contact");
+    goto('/contact');
   }
 </script>
+
+<svelte:head>
+  <title>About Tania McCrea Steele | Photographer in Bradford on Avon</title>
+  <meta
+    name="description"
+    content="Learn more about Tania McCrea Steele, a passionate photographer capturing the beauty of Bradford on Avon and beyond."
+  />
+</svelte:head>
 
 <div class="about-container">
   <div class="about-wrapper">
     <div class="image-wrapper">
-      <Image data={about.profileImage.responsiveImage} />
+      <CustomImage data={about.profileImage.responsiveImage} />
     </div>
 
     <div class="about-content">
@@ -25,9 +32,7 @@
         {@html about.aboutText}
       </content>
 
-      <button aria-label="contact" on:click={handleClick}>
-        Get in touch
-      </button>
+      <button aria-label="contact" on:click={handleClick}> Get in touch </button>
     </div>
   </div>
 </div>
@@ -55,7 +60,7 @@
   }
 
   content {
-    font-family: "Poppins", sans-serif;
+    font-family: 'Poppins', sans-serif;
     color: var(--color-gray-600);
     font-size: 14px;
   }

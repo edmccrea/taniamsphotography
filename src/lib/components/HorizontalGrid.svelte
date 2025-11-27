@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Image } from "@datocms/svelte";
+  import CustomImage from '$lib/components/CustomImage.svelte';
   import { lightbox } from "$lib/stores/lightbox";
 
   export let images: App.Image[];
@@ -21,7 +21,7 @@
         on:keyup={() => openLightbox(index)}
         class="image-item"
       >
-        <Image data={image.responsiveImage} />
+        <CustomImage data={image.responsiveImage} />
       </li>
     {/each}
   </ul>

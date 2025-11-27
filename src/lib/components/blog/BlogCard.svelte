@@ -2,6 +2,7 @@
   import { goto } from '$app/navigation';
   import type { BlogPost } from '../../../types';
   import { createEventDispatcher } from 'svelte';
+  import CustomImage from '$lib/components/CustomImage.svelte';
 
   export let cardData: BlogPost;
 
@@ -15,7 +16,7 @@
 
 <button class="card" on:click={goToPost}>
   <div class="img-container">
-    <img src={cardData.cardImage.responsiveImage.src} alt="" />
+    <CustomImage data={cardData.cardImage.responsiveImage} />
   </div>
   <h3>{cardData.title}</h3>
   <p>{cardData.publishDate}</p>
@@ -41,14 +42,11 @@
     border-radius: 4px;
   }
 
-  img {
-    object-fit: cover;
-    width: 100%;
-    height: 100%;
-    transition: all ease-in-out 200ms;
+  .img-container :global(img) {
+    transition: transform 100ms ease-in-out;
   }
 
-  .card:hover img {
+  .card:hover :global(img) {
     transform: scale(1.05);
   }
 

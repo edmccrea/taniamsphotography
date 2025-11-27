@@ -34,6 +34,14 @@
   }
 </script>
 
+<svelte:head>
+  <title>Contact Tania McCrea Steele | Photography Services</title>
+  <meta
+    name="description"
+    content="Get in touch with Tania McCrea Steele for photography inquiries in Bradford on Avon and Wiltshire."
+  />
+</svelte:head>
+
 <div class="contact-wrapper">
   {#if formSubmitted || loading}
     <div class="submitted" in:fade|global>
