@@ -10,6 +10,7 @@
   import Footer from '$lib/components/Footer.svelte';
   import MobileNav from '$lib/components/MobileNav.svelte';
   import type { Image } from '../types';
+  import { dev } from '$app/environment';
 
   export let data: PageData;
 
@@ -62,6 +63,13 @@
       "sameAs": []
     }
   </script>`}
+  {#if !dev}
+    <script
+      defer
+      src="https://cloud.umami.is/script.js"
+      data-website-id="50618c95-a29f-4e43-a261-a63c9936df17"
+    ></script>
+  {/if}
 </svelte:head>
 
 <Lightbox bind:open={showLightbox} images={lightboxImages} currentImageIndex={lightboxImageIndex} />
