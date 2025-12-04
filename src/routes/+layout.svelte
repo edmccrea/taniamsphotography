@@ -2,7 +2,6 @@
   import { get } from 'svelte/store';
   import { page } from '$app/stores';
   import type { PageData } from './$types';
-
   import '../app.css';
   import { lightbox } from '$lib/stores/lightbox';
   import Nav from '$lib/components/Nav.svelte';
@@ -59,6 +58,7 @@
       "sameAs": []
     }
   </script>`}
+
   {#if !dev}
     <script
       defer
@@ -78,8 +78,10 @@
   <Nav />
 </aside>
 
-<main class="ml-0 flex-grow p-4 flex md:w-full md:ml-[343px] md:p-[40px_40px_40px_0]">
-  <slot />
+<main class="ml-0 flex-grow p-4 grid md:w-full md:ml-[343px] md:p-[40px_40px_40px_0]">
+  <div class="w-full h-full col-start-1 row-start-1">
+    <slot />
+  </div>
 </main>
 
 <div class="w-full h-[80px] flex justify-center items-center md:hidden">

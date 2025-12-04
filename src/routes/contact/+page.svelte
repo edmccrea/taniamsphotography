@@ -1,5 +1,6 @@
 <script lang="ts">
   import { fade } from "svelte/transition";
+  import Reveal from '$lib/components/Reveal.svelte';
 
   let name = "";
   let email = "";
@@ -49,13 +50,15 @@
       <p>I'll get back to you as soon as possible</p>
     </div>
   {:else}
-    <h1>Get in touch.</h1>
-    <form on:submit|preventDefault={handleSubmit}>
-      <input type="text" name="name" bind:value={name} placeholder="Name" />
-      <input type="email" name="email" bind:value={email} placeholder="Email" />
-      <textarea name="message" bind:value={message} placeholder="Message" />
-      <button aria-label="send" type="submit">Send</button>
-    </form>
+    <Reveal>
+      <h1>Get in touch.</h1>
+      <form on:submit|preventDefault={handleSubmit}>
+        <input type="text" name="name" bind:value={name} placeholder="Name" />
+        <input type="email" name="email" bind:value={email} placeholder="Email" />
+        <textarea name="message" bind:value={message} placeholder="Message"></textarea>
+        <button aria-label="send" type="submit">Send</button>
+      </form>
+    </Reveal>
   {/if}
 </div>
 

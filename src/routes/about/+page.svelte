@@ -2,6 +2,7 @@
   import { goto } from '$app/navigation';
   import type { PageData } from './$types';
   import CustomImage from '$lib/components/CustomImage.svelte';
+  import Reveal from '$lib/components/Reveal.svelte';
 
   export let data: PageData;
   const about = data.about;
@@ -22,17 +23,21 @@
 <div class="about-container">
   <div class="about-wrapper">
     <div class="image-wrapper">
-      <CustomImage data={about.profileImage.responsiveImage} />
+      <Reveal>
+        <CustomImage data={about.profileImage.responsiveImage} />
+      </Reveal>
     </div>
 
     <div class="about-content">
-      <h1>{about.pageTitle}</h1>
+      <Reveal delay={0.2}>
+        <h1>{about.pageTitle}</h1>
 
-      <content>
-        {@html about.aboutText}
-      </content>
+        <content>
+          {@html about.aboutText}
+        </content>
 
-      <button aria-label="contact" on:click={handleClick}> Get in touch </button>
+        <button aria-label="contact" on:click={handleClick}> Get in touch </button>
+      </Reveal>
     </div>
   </div>
 </div>
