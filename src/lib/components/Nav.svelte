@@ -1,10 +1,5 @@
 <script lang="ts">
-  import { slide } from 'svelte/transition';
   import Footer from './Footer.svelte';
-  let seasonsOpen = false;
-
-  export let customSectionTitle: string;
-  export let customPages: { title: string; url: string }[];
 </script>
 
 <nav>
@@ -17,37 +12,9 @@
     <li>
       <a href="/about">About</a>
     </li>
-    <button on:click={() => (seasonsOpen = !seasonsOpen)}>
-      <li class="seasons-dropdown">
-        {customSectionTitle}
-        <svg
-          class:open={seasonsOpen}
-          class="seasons-arrow"
-          width="18"
-          height="18"
-          viewBox="0 0 24 24"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M19 9L12 16L5 9"
-            stroke="#4b5563"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          />
-        </svg>
-      </li>
-    </button>
-    {#if seasonsOpen}
-      <ul class="seasons-list" transition:slide>
-        {#each customPages as page}
-          <li>
-            <a href={`/gallery/${page.url}`}>{page.title}</a>
-          </li>
-        {/each}
-      </ul>
-    {/if}
+    <li>
+      <a href="/collections">Collections</a>
+    </li>
     <li>
       <a href="/shop">Shop</a>
     </li>
@@ -88,11 +55,6 @@
     align-items: center;
   }
 
-  button {
-    text-align: left;
-    padding: 0;
-  }
-
   a {
     margin-bottom: 22px;
   }
@@ -108,24 +70,6 @@
 
   a:hover:after {
     width: 100%;
-  }
-
-  .seasons-arrow {
-    margin-left: 8px;
-    transition: all ease-in-out 200ms;
-  }
-
-  .seasons-arrow.open {
-    transform: rotate(180deg);
-  }
-
-  .seasons-dropdown {
-    cursor: pointer;
-    margin-bottom: 22px;
-  }
-
-  .seasons-list {
-    padding-left: 12px;
   }
 
   nav :global(footer) {

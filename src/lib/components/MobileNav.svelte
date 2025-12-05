@@ -1,12 +1,8 @@
 <script lang="ts">
   import { navigating } from '$app/stores';
-  import { fade, slide } from 'svelte/transition';
-
-  export let customSectionTitle: string;
-  export let customPages: { title: string; url: string }[];
+  import { fade } from 'svelte/transition';
 
   let showNav = false;
-  let seasonsOpen = false;
 
   $: $navigating, (showNav = false);
 </script>
@@ -48,37 +44,9 @@
         <li>
           <a aria-label="about" href="/about">About</a>
         </li>
-        <button onclick={() => (seasonsOpen = !seasonsOpen)} class="dropdown-button">
-          <li class="seasons-dropdown">
-            {customSectionTitle}
-            <svg
-              class:open={seasonsOpen}
-              class="seasons-arrow"
-              width="18"
-              height="18"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M19 9L12 16L5 9"
-                stroke="#4b5563"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-            </svg>
-          </li>
-        </button>
-        {#if seasonsOpen}
-          <ul class="seasons-list" transition:slide>
-            {#each customPages as page}
-              <li>
-                <a aria-label={page.title} href={`/gallery/${page.url}`}>{page.title}</a>
-              </li>
-            {/each}
-          </ul>
-        {/if}
+        <li>
+          <a aria-label="collections" href="/collections">Collections</a>
+        </li>
         <li>
           <a aria-label="shop" href="/shop">Shop</a>
         </li>
@@ -161,33 +129,9 @@
     margin-bottom: 22px;
   }
 
-  .seasons-arrow {
-    margin-left: 8px;
-    transition: all ease-in-out 200ms;
-  }
-
-  .seasons-arrow.open {
-    transform: rotate(180deg);
-  }
-
-  .seasons-dropdown {
-    cursor: pointer;
-    margin-bottom: 22px;
-  }
-
-  .seasons-list {
-    padding-left: 12px;
-  }
-
   .close-nav {
     position: absolute;
     top: 1.5rem;
     right: 0.5rem;
-  }
-
-  .dropdown-button {
-    width: 100%;
-    text-align: left;
-    padding: 0;
   }
 </style>

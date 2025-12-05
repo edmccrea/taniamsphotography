@@ -2,7 +2,7 @@ export interface SiteData {
   startPageCollection: StartPageCollection;
   about: About;
   galleryCollection: GalleryCollection;
-  allGalleryCollections: { title: string; url: string }[];
+  allGalleryCollections: { title: string; url: string; images: Image[] }[];
 }
 
 export interface StartPageCollection {

@@ -53,6 +53,21 @@ const query = gql`
     allGalleryCollections(orderBy: displayType_DESC) {
       title
       url
+      images {
+        responsiveImage(imgixParams: { auto: format, h: "1024", q: "45" }) {
+          srcSet
+          webpSrcSet
+          sizes
+          src
+          width
+          height
+          aspectRatio
+          alt
+          title
+          base64
+        }
+        blurUpThumb
+      }
     }
   }
 `;
