@@ -10,7 +10,7 @@
   }
 
   const columns = images.reduce<Column[]>((acc, image, index) => {
-    const columnIndex = index % 3;
+    const columnIndex = index % 2;
     if (!acc[columnIndex]) {
       acc[columnIndex] = { images: [] };
     }
@@ -27,7 +27,7 @@
   }
 
   function getAbsoluteIndex(columnIndex: number, imageIndex: number): number {
-    return columnIndex + imageIndex * 3;
+    return columnIndex + imageIndex * 2;
   }
 </script>
 
@@ -73,7 +73,7 @@
     }
 
     .image-gallery .column {
-      width: 33%;
+      width: 50%;
     }
   }
 </style>
