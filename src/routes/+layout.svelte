@@ -17,10 +17,6 @@
   let showLightbox = false;
   let lightboxImageIndex = 0;
 
-  const customSectionTitle = 'Gallery';
-  const customPages = data.allGalleryCollections.map(gallery => {
-    return { title: gallery.title, url: gallery.url };
-  });
 
   let lightboxImages: Image[] = [];
 
@@ -75,11 +71,11 @@
 <Lightbox bind:open={showLightbox} images={lightboxImages} currentImageIndex={lightboxImageIndex} />
 
 <div class="md:hidden">
-  <MobileNav {customSectionTitle} {customPages} />
+  <MobileNav />
 </div>
 
 <aside class="hidden md:block fixed top-0 left-0 h-full">
-  <Nav {customSectionTitle} {customPages} />
+  <Nav />
 </aside>
 
 <main class="ml-0 flex-grow p-4 flex md:w-full md:ml-[343px] md:p-[40px_40px_40px_0]">
