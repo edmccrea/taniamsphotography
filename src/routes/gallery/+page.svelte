@@ -7,7 +7,7 @@
 </script>
 
 <div class="collections-wrapper">
-  <h1>Collections.</h1>
+  <h1>Gallery.</h1>
 
   <div class="grid">
     {#each collections as collection}

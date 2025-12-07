@@ -45,7 +45,7 @@
           <a aria-label="about" href="/about">About</a>
         </li>
         <li>
-          <a aria-label="collections" href="/collections">Collections</a>
+          <a aria-label="gallery" href="/gallery">Gallery</a>
         </li>
         <li>
           <a aria-label="shop" href="/shop">Shop</a>

@@ -3,14 +3,7 @@ import { DATO_API_KEY } from '$env/static/private';
 
 export async function GET() {
   const site = 'https://www.taniamccreasteele.com';
-  const staticPages = [
-    '',
-    '/about',
-    '/collections',
-    '/shop',
-    '/contact',
-    '/blog'
-  ];
+  const staticPages = ['', '/about', '/gallery', '/shop', '/contact', '/blog'];
 
   const query = gql`
     {
@@ -35,11 +28,9 @@ export async function GET() {
     allBlogPosts: { url: string }[];
   } = await graphQLClient.request(query);
 
-  const galleryPages = data.allGalleryCollections.map(
-    (gallery) => `/gallery/${gallery.url}`
-  );
+  const galleryPages = data.allGalleryCollections.map(gallery => `/gallery/${gallery.url}`);
 
-  const blogPages = data.allBlogPosts.map((post) => `/blog/${post.url}`);
+  const blogPages = data.allBlogPosts.map(post => `/blog/${post.url}`);
 
   const pages = [...staticPages, ...galleryPages, ...blogPages];
 
@@ -54,13 +45,13 @@ export async function GET() {
 >
   ${pages
     .map(
-      (page) => `
+      page => `
   <url>
     <loc>${site}${page}</loc>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
   </url>
-  `
+  `,
     )
     .join('')}
 </urlset>`;

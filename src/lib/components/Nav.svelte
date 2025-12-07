@@ -13,7 +13,7 @@
       <a href="/about">About</a>
     </li>
     <li>
-      <a href="/collections">Collections</a>
+      <a href="/gallery">Gallery</a>
     </li>
     <li>
       <a href="/shop">Shop</a>
