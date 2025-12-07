@@ -50,7 +50,7 @@ const query = gql`
       }
     }
 
-    allGalleryCollections(orderBy: displayType_DESC) {
+    allGalleryCollections(orderBy: position_ASC) {
       title
       url
       images {
