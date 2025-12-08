@@ -74,7 +74,7 @@
   .overlay {
     position: absolute;
     inset: 0;
-    background: rgba(0, 0, 0, 0.3);
+    background: rgba(0, 0, 0, 0.1);
     display: flex;
     justify-content: center;
     align-items: center;
