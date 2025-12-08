@@ -6,6 +6,8 @@
   export let duration = 0.5;
   export let delay = 0;
   export let y = 20;
+  let className = '';
+  export { className as class };
 
   let element: HTMLElement;
 
@@ -20,6 +22,6 @@
   });
 </script>
 
-<div bind:this={element} class="opacity-0">
+<div bind:this={element} class="opacity-0 {className}">
   <slot />
 </div>

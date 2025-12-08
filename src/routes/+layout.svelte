@@ -11,11 +11,8 @@
   import type { Image } from '../types';
   import { dev } from '$app/environment';
 
-  export let data: PageData;
-
   let showLightbox = false;
   let lightboxImageIndex = 0;
-
 
   let lightboxImages: Image[] = [];
 
