@@ -43,7 +43,7 @@
   }
 
   .img-container :global(img) {
-    transition: transform 100ms ease-in-out;
+    transition: transform 700ms ease-in-out;
   }
 
   .card:hover :global(img) {
