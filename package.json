@@ -33,6 +33,7 @@
     "bits-ui": "^0.22.0",
     "graphql-request": "^5.2.0",
     "lucide-svelte": "^0.473.0",
+    "motion": "^12.23.25",
     "tailwindcss-animate": "^1.0.7"
   }
 }

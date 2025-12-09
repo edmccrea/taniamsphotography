@@ -4,7 +4,7 @@ import type { SiteData } from '../../../types';
 
 import { DATO_API_KEY, DATO_CONNECTION_URL } from '$env/static/private';
 
-export const load = (async ({ url, params }) => {
+export const load = (async ({ params }) => {
   const page = params.galleryName;
   const galleryCollection = await getGalleryCollection(page);
   return {

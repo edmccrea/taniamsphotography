@@ -16,12 +16,14 @@
 <div class="container">
   <ul class="image-gallery">
     {#each images as image, index}
-      <li
-        on:click={() => openLightbox(index)}
-        on:keyup={() => openLightbox(index)}
-        class="image-item"
-      >
-        <CustomImage data={image.responsiveImage} />
+      <li class="image-item">
+        <button
+          class="w-full h-full p-0 border-none bg-transparent cursor-pointer"
+          on:click={() => openLightbox(index)}
+          on:keyup={(e) => e.key === 'Enter' && openLightbox(index)}
+        >
+          <CustomImage data={image.responsiveImage} />
+        </button>
       </li>
     {/each}
   </ul>
