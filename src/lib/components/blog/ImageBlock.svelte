@@ -1,14 +1,19 @@
 <script lang="ts">
-  import CustomImage from '$lib/components/CustomImage.svelte';
-  export let imageBlockData: any;
+  import CustomImage from '#lib/components/CustomImage.svelte';
+  import type { Image } from '#lib/types.js';
+
+  let { image, caption }: { image: Image; caption: string | null } = $props();
 </script>
 
 <div class="image-block">
   <div class="image-item">
-    <CustomImage data={imageBlockData.image.responsiveImage} />
-    </div>
-  {#if imageBlockData.caption}
-    <p>{imageBlockData.caption}</p>
+    <CustomImage
+      data={image.responsiveImage}
+      sizes="(min-width: 768px) 700px, calc(100vw - 32px)"
+    />
+  </div>
+  {#if caption}
+    <p>{caption}</p>
   {/if}
 </div>
 

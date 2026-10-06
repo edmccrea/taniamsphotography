@@ -1,10 +1,11 @@
 <script lang="ts">
-  import CustomImage from '$lib/components/CustomImage.svelte';
+  import CustomImage from '#lib/components/CustomImage.svelte';
+  import type { Image } from '#lib/types.js';
 
-  export let images: App.Image[];
+  let { images }: { images: Image[] } = $props();
 
-  let currentImageIndex = 0;
-  let currentImage = images[currentImageIndex];
+  let currentImageIndex = $state(0);
+  let currentImage = $derived(images[currentImageIndex]);
 
   function moveCarousel(direction: number) {
     if (direction === 1) {
@@ -20,15 +21,13 @@
         currentImageIndex--;
       }
     }
-
-    currentImage = images[currentImageIndex];
   }
 </script>
 
 {#if images.length}
   <div class="showcase-wrapper">
     <div class="showcase-image">
-      <button aria-label="previous" on:click={() => moveCarousel(-1)}>
+      <button aria-label="previous" onclick={() => moveCarousel(-1)}>
         <svg
           width="32"
           height="32"
@@ -47,10 +46,14 @@
       </button>
       {#key currentImageIndex}
         <div class="image-container">
-          <CustomImage data={currentImage.responsiveImage} />
+          <CustomImage
+            data={currentImage.responsiveImage}
+            loading="eager"
+            sizes="(min-width: 768px) 765px, calc(100vw - 32px)"
+          />
         </div>
       {/key}
-      <button aria-label="next" on:click={() => moveCarousel(1)}>
+      <button aria-label="next" onclick={() => moveCarousel(1)}>
         <svg
           width="32"
           height="32"

@@ -1,45 +1,28 @@
 <script lang="ts">
-  import CustomImage from '$lib/components/CustomImage.svelte';
-  import type { Image } from '../../types';
-  import { lightbox } from '$lib/stores/lightbox';
+  import CustomImage from '#lib/components/CustomImage.svelte';
+  import { openLightbox } from '#lib/lightbox.svelte.js';
+  import type { Image } from '#lib/types.js';
 
-  export let images: Image[];
+  let { images, context = '' }: { images: Image[]; context?: string } = $props();
 
-  interface Column {
-    images: Image[];
-  }
-
-  const columns = images.reduce<Column[]>((acc, image, index) => {
-    const columnIndex = index % 2;
-    if (!acc[columnIndex]) {
-      acc[columnIndex] = { images: [] };
-    }
-    acc[columnIndex].images.push(image);
-    return acc;
-  }, []);
-
-  function openLightbox(index: number) {
-    lightbox.set({
-      open: true,
-      images,
-      currentImageIndex: index,
-    });
-  }
-
-  function getAbsoluteIndex(columnIndex: number, imageIndex: number): number {
-    return columnIndex + imageIndex * 2;
-  }
+  let columns = $derived([
+    images.filter((_, i) => i % 2 === 0),
+    images.filter((_, i) => i % 2 === 1),
+  ]);
 </script>
 
 <div class="image-gallery">
   {#each columns as column, columnIndex}
     <div class="column">
-      {#each column.images as image, imageIndex}
+      {#each column as image, imageIndex}
         <button
           class="image-item"
-          on:click={() => openLightbox(getAbsoluteIndex(columnIndex, imageIndex))}
+          onclick={() => openLightbox(images, columnIndex + imageIndex * 2, context)}
         >
-          <CustomImage data={image.responsiveImage} />
+          <CustomImage
+            data={image.responsiveImage}
+            sizes="(min-width: 1024px) calc((100vw - 350px) / 2), (min-width: 768px) calc((100vw - 42px) / 2), calc(100vw - 32px)"
+          />
         </button>
       {/each}
     </div>

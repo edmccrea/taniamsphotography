@@ -1,5 +1,5 @@
 <script lang="ts">
-  export let subtitle: any;
+  let { subtitle }: { subtitle: string | undefined } = $props();
 </script>
 
 <div class="subtitle-block">

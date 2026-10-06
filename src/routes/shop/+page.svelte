@@ -1,404 +1,489 @@
 <script lang="ts">
-  import { goto } from '$app/navigation';
-  import FramingExamples from '$lib/components/FramingExamples.svelte';
+  import { onMount } from 'svelte';
+  import FramingExamples from '#lib/components/FramingExamples.svelte';
+  import { SHOP_HERO_IMAGE, gbp, lowestPrice, priceRows, printRatios } from '#lib/prices.js';
 
-  const printRatios = [
-    {
-      title: '4:3 Ratio',
-      color: '🔲',
-      printOnly: [
-        { sizeIn: '6x4.5', sizeCm: '15.2 x 11.4', price: 9.99 },
-        { sizeIn: '8x6', sizeCm: '20.3 x 15.2', price: 19.99 },
-        { sizeIn: '12x9', sizeCm: '30.5 x 22.9', price: 21.99 },
-        { sizeIn: '16x12', sizeCm: '40.6 x 30.5', price: 29.99 },
-        { sizeIn: '20x15', sizeCm: '50.8 x 38.1', price: 34.99 },
-        { sizeIn: '24x18', sizeCm: '61 x 45.7', price: 59.99 },
-      ],
-      framed: [
-        { sizeIn: '16x12', sizeCm: '40.6 x 30.5', price: 99.99 },
-        { sizeIn: '24x18', sizeCm: '61 x 45.7', price: 159.99 },
-      ],
-    },
-    {
-      title: '3:2 Ratio',
-      color: '🟦',
-      printOnly: [
-        { sizeIn: '6x4', sizeCm: '15.2 x 10.2', price: 9.99 },
-        { sizeIn: '7.5x5', sizeCm: '19.1 x 12.7', price: 11.99 },
-        { sizeIn: '9x6', sizeCm: '22.9 x 15.2', price: 19.99 },
-        { sizeIn: '12x8', sizeCm: '30.5 x 20.3', price: 21.99 },
-        { sizeIn: '15x10', sizeCm: '38.1 x 25.4', price: 29.99 },
-        { sizeIn: '18x12', sizeCm: '45.7 x 30.5', price: 34.99 },
-        { sizeIn: '24x16', sizeCm: '61 x 40.6', price: 59.99 },
-      ],
-      framed: [
-        { sizeIn: '15x10', sizeCm: '38.1 x 25.4', price: 99.99 },
-        { sizeIn: '24x16', sizeCm: '61 x 40.6', price: 159.99 },
-      ],
-    },
-    {
-      title: '5:4 Ratio',
-      color: '🟥',
-      printOnly: [
-        { sizeIn: '5x4', sizeCm: '12.7 x 10.2', price: 4.99 },
-        { sizeIn: '10x8', sizeCm: '25.4 x 20.3', price: 24.99 },
-        { sizeIn: '15x12', sizeCm: '38.1 x 30.5', price: 29.99 },
-        { sizeIn: '20x16', sizeCm: '50.8 x 40.6', price: 54.99 },
-      ],
-      framed: [
-        { sizeIn: '15x12', sizeCm: '38.1 x 30.5', price: 99.99 },
-        { sizeIn: '20x16', sizeCm: '50.8 x 40.6', price: 154.99 },
-      ],
-    },
-    {
-      title: '5:7 Ratio',
-      color: '🟨',
-      printOnly: [
-        { sizeIn: '7x5', sizeCm: '17.8 x 12.7', price: 11.99 },
-        { sizeIn: '10.5x7.5', sizeCm: '26.7 x 19.1', price: 19.99 },
-        { sizeIn: '14x10', sizeCm: '35.6 x 25.4', price: 21.99 },
-        { sizeIn: '17.5x12.5', sizeCm: '44.5 x 31.8', price: 29.99 },
-        { sizeIn: '21x15', sizeCm: '53.3 x 38.1', price: 34.99 },
-      ],
-      framed: [
-        { sizeIn: '17.5x12.5', sizeCm: '44.5 x 31.8', price: 99.99 },
-        { sizeIn: '28x20', sizeCm: '71.1 x 50.8', price: 159.99 },
-      ],
-    },
-    {
-      title: '1:1 Ratio (Square Prints)',
-      color: '🟩',
-      printOnly: [
-        { sizeIn: '6x6', sizeCm: '15.2 x 15.2', price: 13.99 },
-        { sizeIn: '8x8', sizeCm: '20.3 x 20.3', price: 22.99 },
-        { sizeIn: '10x10', sizeCm: '25.4 x 25.4', price: 25.99 },
-        { sizeIn: '12x12', sizeCm: '30.5 x 30.5', price: 27.99 },
-        { sizeIn: '16x16', sizeCm: '40.6 x 40.6', price: 39.99 },
-        { sizeIn: '20x20', sizeCm: '50.8 x 50.8', price: 54.99 },
-        { sizeIn: '24x24', sizeCm: '61 x 61', price: 74.99 },
-      ],
-      framed: [
-        { sizeIn: '16x16', sizeCm: '40.6 x 40.6', price: 109.99 },
-        { sizeIn: '24x24', sizeCm: '61 x 61', price: 169.99 },
-      ],
-    },
-  ];
+  let selectedKey = $state(printRatios[1].key);
+  let selected = $derived(printRatios.find(r => r.key === selectedKey) ?? printRatios[0]);
+  let rows = $derived(priceRows(selected));
 
-  function goToContact() {
-    goto('/contact');
-  }
+  onMount(() => {
+    const ratio = new URL(window.location.href).searchParams.get('ratio');
+    const key = ratio?.split(' ')[0];
+    if (key && printRatios.some(r => r.key === key)) selectedKey = key;
+  });
 </script>
 
 <svelte:head>
-  <title>Photography Prints - Tania McCrea Steele Photography</title>
+  <title>Prints | Tania McCrea Steele Photography</title>
   <meta
     name="description"
-    content="High-quality photography prints available for purchase. Professional printing by Loxley Colour with various sizes and framing options."
+    content="Fine art photography prints by Tania McCrea Steele, printed by Loxley Colour. Stand-alone or framed, from £4.99."
   />
 </svelte:head>
 
-<div class="prints-container">
-  <div class="prints-content">
-    <header class="prints-header">
-      <h1>Photography Prints for Sale</h1>
-      <p class="intro-text">
-        High-quality photography prints are available for purchase, either as stand-alone prints or
-        professionally framed. Please refer to the pricing chart below and complete the order form
-        to get started.
+<div class="prints">
+  <section class="hero">
+    <div class="hero-copy">
+      <h1>Bring a little of the landscape home.</h1>
+      <p class="lead">
+        Every photograph on this site is available as a stand-alone print or professionally framed,
+        produced by
+        <a href="https://www.loxleycolour.com/" target="_blank" rel="noopener">Loxley Colour</a>.
+        Prices start from {gbp(lowestPrice)}.
       </p>
-      <p class="payment-info">Payments are accepted via PayPal or bank transfer.</p>
-      <p class="quality-info">
-        All prints are produced by <strong
-          ><a href="https://www.loxleycolour.com/" target="_blank" class="prints-link"
-            >Loxley Colour</a
-          ></strong
-        >, a trusted professional print lab known for exceptional quality. Stand-alone prints
-        include a small white border, making them easy to mount and frame to your preference.
-      </p>
-      <p class="support-text">
-        Thank you for supporting my photography—your purchase helps me continue shooting by funding
-        the equipment I need to capture more moments.
-      </p>
-
-      <div class="header-actions">
-        <a href="#pricing-list" class="cta-button">View Prices</a>
-        <button class="cta-button secondary" on:click={goToContact}>Contact Me</button>
+      <div class="actions">
+        <a href="#prices" class="button">See prices</a>
+        <a href="/gallery" class="button secondary">Choose a photograph</a>
       </div>
-    </header>
+      <p class="thanks">
+        Thank you for supporting my photography. Every print helps fund the time and equipment to
+        keep capturing these moments.
+      </p>
+    </div>
+    <figure class="hero-image">
+      <img
+        src={SHOP_HERO_IMAGE}
+        alt="A framed print standing on a shelf beside two ceramic vases"
+        width="800"
+        height="600"
+        fetchpriority="high"
+      />
+    </figure>
+  </section>
 
-    <FramingExamples />
-    <div class="pricing-section" id="pricing-list">
-      <h2>Photography Print & Framed Print Price List</h2>
-      <p class="size-note">All sizes are listed in inches, with centimetre equivalents</p>
+  <section class="details" aria-label="What to expect">
+    <div>
+      <span class="num">01</span>
+      <h3>Choose a photograph</h3>
+      <p>
+        Open any image in the gallery and use <em>Order a print</em>. It tells you the closest print
+        ratio.
+      </p>
+    </div>
+    <div>
+      <span class="num">02</span>
+      <h3>Pick a size</h3>
+      <p>
+        Stand-alone prints come with a small white border, ready to mount and frame however you
+        like.
+      </p>
+    </div>
+    <div>
+      <span class="num">03</span>
+      <h3>I'll confirm by email</h3>
+      <p>Availability, shipping and payment details. Payment is by PayPal or bank transfer.</p>
+    </div>
+  </section>
 
-      {#each printRatios as ratio}
-        <div class="ratio-section">
-          <h3>{ratio.color} {ratio.title}</h3>
+  <FramingExamples />
 
-          <div class="tables-container">
-            <div class="table-wrapper">
-              <h4>Print Only</h4>
-              <div class="price-table">
-                <div class="table-header">
-                  <span>Size (in)</span>
-                  <span>Size (cm)</span>
-                  <span>Price (£)</span>
-                </div>
-                {#each ratio.printOnly as print}
-                  <div class="table-row">
-                    <span>{print.sizeIn}</span>
-                    <span>{print.sizeCm}</span>
-                    <span>£{print.price.toFixed(2)}</span>
-                  </div>
-                {/each}
-              </div>
-            </div>
+  <section class="pricing" id="prices" aria-labelledby="prices-heading">
+    <div class="pricing-heading">
+      <h2 id="prices-heading">Choose the shape, then the size</h2>
+      <p class="note">
+        Sizes in inches with centimetre equivalents. Framed prices include the frame.
+      </p>
+    </div>
 
-            {#if ratio.framed.length > 0}
-              <div class="table-wrapper">
-                <h4>Framed Prints</h4>
-                <div class="price-table">
-                  <div class="table-header">
-                    <span>Size (in)</span>
-                    <span>Size (cm)</span>
-                    <span>Framed Price (£)</span>
-                  </div>
-                  {#each ratio.framed as print}
-                    <div class="table-row">
-                      <span>{print.sizeIn}</span>
-                      <span>{print.sizeCm}</span>
-                      <span>£{print.price.toFixed(2)}</span>
-                    </div>
-                  {/each}
-                </div>
-              </div>
-            {/if}
-          </div>
+    <div class="tabs" role="tablist" aria-label="Print ratio">
+      {#each printRatios as ratio (ratio.key)}
+        <button
+          role="tab"
+          id="tab-{ratio.key.replace(':', '-')}"
+          aria-selected={selectedKey === ratio.key}
+          aria-controls="panel-prices"
+          class="tab"
+          class:active={selectedKey === ratio.key}
+          onclick={() => (selectedKey = ratio.key)}
+        >
+          <span class="shape" style="aspect-ratio: {ratio.ratio[0]} / {ratio.ratio[1]}"></span>
+          <span class="tab-label">{ratio.label}</span>
+        </button>
+      {/each}
+    </div>
+
+    <div
+      class="price-table"
+      role="tabpanel"
+      id="panel-prices"
+      aria-labelledby="tab-{selectedKey.replace(':', '-')}"
+    >
+      <div class="row head">
+        <span>Size</span>
+        <span>Print</span>
+        <span>Framed</span>
+      </div>
+      {#each rows as row (row.sizeIn)}
+        <div class="row">
+          <span class="size">
+            <strong>{row.sizeIn}<span class="unit"> in</span></strong>
+            <small>{row.sizeCm} cm</small>
+          </span>
+          <span class="price">{row.print === null ? '—' : gbp(row.print)}</span>
+          <span class="price">{row.framed === null ? '—' : gbp(row.framed)}</span>
         </div>
       {/each}
     </div>
 
-    <div class="order-section">
-      <h2>Interested?</h2>
+    <p class="footnote">
+      {#if selectedKey === '1:1'}
+        Square prints suit the detail and wildlife work especially well.
+      {:else}
+        Not sure which shape? Open a photograph and <em>Order a print</em> will tell you.
+      {/if}
+    </p>
+  </section>
 
-      <div class="contact-alternative">
-        <p></p>
-        <button class="contact-btn" on:click={goToContact}>Contact Me</button>
-      </div>
-    </div>
-  </div>
+  <section class="order">
+    <h2>Ready to order?</h2>
+    <p>
+      Tell me which photograph, which size, and whether you'd like it framed. I'll reply with
+      availability, shipping cost and payment details.
+    </p>
+    <a class="button" href="/contact?print=">Make an enquiry</a>
+  </section>
 </div>
 
 <style>
   :global(html) {
     scroll-behavior: smooth;
   }
-  .prints-container {
+
+  .prints {
     width: 100%;
-    height: 100%;
+    max-width: 1040px;
+    padding: 0.5rem 0 2rem;
+  }
+
+  /* Hero */
+  .hero {
     display: flex;
-    justify-content: center;
-    padding: 1rem 0;
-  }
-
-  .prints-content {
-    max-width: 1000px;
-    width: 100%;
-  }
-
-  .prints-header {
-    margin-bottom: 2rem;
+    flex-direction: column;
+    gap: 1.75rem;
   }
 
   h1 {
     font-weight: 700;
-    font-size: 2rem;
+    font-size: 2.1rem;
+    line-height: 1.15;
+    color: var(--color-ink);
+    letter-spacing: -0.01em;
+    margin-bottom: 1rem;
+  }
+
+  .lead {
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--color-gray-600);
     margin-bottom: 1.5rem;
-    color: var(--color-gray-700);
   }
 
-  h2 {
-    font-weight: 600;
-    font-size: 1.5rem;
-    margin-bottom: 1rem;
-    color: var(--color-gray-700);
-  }
-
-  h3 {
-    font-weight: 600;
-    font-size: 1.25rem;
-    margin-bottom: 1rem;
-    color: var(--color-gray-700);
-  }
-
-  h4 {
-    font-weight: 500;
-    font-size: 1rem;
-    margin-bottom: 0.5rem;
-    color: var(--color-gray-600);
-  }
-
-  .prints-link {
-    color: var(--color-gray-600);
+  .lead a {
+    color: var(--color-accent-strong);
     text-decoration: underline;
-    transition: color ease 0.2s;
+    text-underline-offset: 3px;
   }
 
-  .prints-link:hover {
-    color: var(--color-gray-800);
-  }
-
-  .intro-text,
-  .payment-info,
-  .quality-info,
-  .support-text,
-  .size-note {
-    font-family: 'Poppins', sans-serif;
-    color: var(--color-gray-600);
-    font-size: 14px;
+  .thanks {
+    margin-top: 1.5rem;
+    font-size: 13px;
     line-height: 1.5;
+    color: var(--color-gray-500);
+  }
+
+  .hero-image {
+    margin: 0;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid var(--color-gray-200);
+  }
+
+  .hero-image img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    aspect-ratio: 4 / 3;
+  }
+
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .button {
+    display: inline-block;
+    padding: 0.65rem 1.2rem;
+    border-radius: 999px;
+    font-size: 14px;
+    background: var(--color-accent);
+    color: #fff;
+    border: 1px solid var(--color-accent);
+    transition:
+      background 180ms ease,
+      border-color 180ms ease;
+  }
+
+  .button:hover {
+    background: var(--color-accent-strong);
+    border-color: var(--color-accent-strong);
+  }
+
+  .button.secondary {
+    background: transparent;
+    color: var(--color-accent-strong);
+  }
+
+  .button.secondary:hover {
+    background: var(--color-accent-soft);
+  }
+
+  /* Steps */
+  .details {
+    display: grid;
+    gap: 1.5rem;
+    margin-top: 3.5rem;
+    padding-top: 2.5rem;
+    border-top: 1px solid var(--color-gray-200);
+  }
+
+  .details .num {
+    display: block;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    color: var(--color-accent);
+    margin-bottom: 0.5rem;
+  }
+
+  .details h3 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--color-ink);
+    margin-bottom: 0.35rem;
+  }
+
+  .details p {
+    font-size: 14px;
+    line-height: 1.55;
+    color: var(--color-gray-600);
+  }
+
+  em {
+    font-style: normal;
+    font-weight: 500;
+    color: var(--color-accent-strong);
+  }
+
+  /* Pricing */
+  .pricing {
+    margin-top: 1rem;
+    scroll-margin-top: 2rem;
+  }
+
+  .pricing-heading {
+    margin-bottom: 1.5rem;
+  }
+
+  .pricing h2,
+  .order h2 {
+    font-weight: 600;
+    font-size: 1.6rem;
+    color: var(--color-ink);
+  }
+
+  .note {
+    margin-top: 0.4rem;
+    font-size: 13px;
+    color: var(--color-gray-500);
+  }
+
+  .tabs {
+    display: flex;
+    gap: 0.5rem;
+    overflow-x: auto;
+    scrollbar-width: none;
+    padding-bottom: 0.25rem;
     margin-bottom: 1rem;
   }
 
-  .cta-button {
+  .tabs::-webkit-scrollbar {
+    display: none;
+  }
+
+  .tab {
+    flex: 0 0 auto;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.55rem 0.9rem 0.55rem 0.7rem;
+    border-radius: 999px;
+    border: 1px solid var(--color-gray-200);
+    background: #fff;
+    color: var(--color-gray-600);
+    font-size: 13px;
+    font-variant-numeric: tabular-nums;
+    transition:
+      border-color 180ms ease,
+      background 180ms ease,
+      color 180ms ease;
+  }
+
+  .tab:hover {
+    border-color: var(--color-gray-400);
+    color: var(--color-ink);
+  }
+
+  .tab.active {
+    border-color: var(--color-accent);
+    background: var(--color-accent-soft);
+    color: var(--color-accent-strong);
+  }
+
+  .shape {
     display: inline-block;
-    padding: 0.5rem 1rem;
-    border-radius: 8px;
-    font-family: 'Poppins', sans-serif;
-    font-size: 14px;
-    text-decoration: none;
-    cursor: pointer;
-    transition: all 0.2s ease-in-out;
-    border: 1px solid transparent;
-  }
-
-  .cta-button {
-    background-color: var(--color-gray-800, #2d3748);
-    color: white;
-    border-color: var(--color-gray-800, #2d3748);
-  }
-
-  .cta-button:hover {
-    background-color: var(--color-gray-700, #4a5568);
-    border-color: var(--color-gray-700, #4a5568);
-  }
-
-  .cta-button.secondary {
-    background-color: transparent;
-    color: var(--color-gray-700, #4a5568);
-    border-color: var(--color-gray-600, #718096);
-  }
-
-  .cta-button.secondary:hover {
-    background-color: var(--color-gray-100, #f7fafc);
-    color: var(--color-gray-800, #2d3748);
-  }
-
-  .quality-info strong {
-    color: var(--color-gray-700);
-  }
-
-  .pricing-section {
-    margin-bottom: 3rem;
-  }
-
-  .ratio-section {
-    margin-bottom: 2rem;
-    border-bottom: 1px solid var(--color-gray-200);
-    padding-bottom: 2rem;
-  }
-
-  .ratio-section:last-child {
-    border-bottom: none;
-  }
-
-  .tables-container {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-  }
-
-  .table-wrapper {
-    background: var(--color-gray-50);
-    border-radius: 8px;
-    padding: 1rem;
+    height: 14px;
+    border: 1.5px solid currentColor;
+    border-radius: 2px;
+    opacity: 0.8;
   }
 
   .price-table {
+    background: #fff;
+    border: 1px solid var(--color-gray-200);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  .row {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 0.5rem;
-  }
-
-  .table-header {
-    display: contents;
-    font-weight: 600;
-    color: var(--color-gray-700);
+    grid-template-columns: 1.6fr 1fr 1fr;
+    align-items: center;
+    padding: 0.85rem 1rem;
+    border-top: 1px solid var(--color-gray-100);
     font-size: 14px;
+    transition: background 150ms ease;
   }
 
-  .table-header span {
-    padding: 0.75rem 0.5rem;
-    border-bottom: 2px solid var(--color-gray-300);
+  .row:not(.head):hover {
+    background: var(--color-paper);
   }
 
-  .table-row {
-    display: contents;
-    font-family: 'Poppins', sans-serif;
-    font-size: 14px;
-    color: var(--color-gray-600);
-  }
-
-  .table-row span {
-    padding: 0.5rem;
-    border-bottom: 1px solid var(--color-gray-200);
-  }
-
-  .order-section {
+  .row.head {
+    border-top: none;
+    padding: 0.7rem 1rem;
+    font-size: 12px;
+    color: var(--color-gray-500);
     background: var(--color-gray-50);
-    border-radius: 8px;
-    padding: 2rem;
-    text-align: center;
   }
 
-  .contact-alternative {
-    margin-top: 2rem;
-    text-align: center;
+  .row.head span:not(:first-child),
+  .price {
+    text-align: right;
   }
 
-  .contact-alternative p {
-    font-family: 'Poppins', sans-serif;
-    color: var(--color-gray-600);
+  .size {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .size strong {
+    font-weight: 500;
+    color: var(--color-ink);
+  }
+
+  .unit {
+    font-weight: 400;
+    color: var(--color-gray-500);
+  }
+
+  .size small {
+    font-size: 12px;
+    color: var(--color-gray-500);
+  }
+
+  .price {
+    font-variant-numeric: tabular-nums;
+    color: var(--color-ink);
+  }
+
+  .footnote {
+    margin-top: 0.9rem;
+    font-size: 13px;
+    color: var(--color-gray-500);
+  }
+
+  /* Order */
+  .order {
+    margin-top: 4rem;
+    padding: 2.5rem 1.5rem;
+    border-radius: 12px;
+    background: var(--color-accent-soft);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .order p {
     font-size: 14px;
-    margin-bottom: 1rem;
-  }
-
-  .contact-btn {
-    padding: 0.5rem 1rem;
-    border: 1px solid var(--color-gray-600);
+    line-height: 1.55;
     color: var(--color-gray-600);
-    background: white;
-    transition: all ease 0.2s;
-    border-radius: 5px;
-    font-size: 16px;
-  }
-
-  .contact-btn:hover {
-    background-color: var(--color-gray-100);
+    max-width: 520px;
+    margin-bottom: 0.5rem;
   }
 
   @media (min-width: 768px) {
-    .tables-container {
+    .hero {
       flex-direction: row;
-      gap: 2rem;
+      align-items: center;
+      gap: 3rem;
     }
 
-    .table-wrapper {
-      flex: 1;
+    .hero-copy {
+      flex: 1 1 52%;
     }
 
-    .price-table {
-      grid-template-columns: 1.2fr 1.5fr 1fr;
+    .hero-image {
+      flex: 1 1 48%;
+    }
+
+    h1 {
+      font-size: 2.6rem;
+    }
+
+    .details {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2.5rem;
+    }
+
+    .row {
+      grid-template-columns: 1fr 150px 150px;
+      padding: 0.95rem 1.5rem;
+    }
+
+    .row.head {
+      padding: 0.75rem 1.5rem;
+    }
+
+    .size {
+      flex-direction: row;
+      align-items: baseline;
+      gap: 0.75rem;
+    }
+
+    .order {
+      padding: 3rem 2rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .prints {
+      padding-top: 3rem;
     }
   }
 </style>

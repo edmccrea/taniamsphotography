@@ -1,27 +1,44 @@
 <script lang="ts">
-  import { inView, animate } from 'motion';
-  import { onMount } from 'svelte';
+  import type { Snippet } from 'svelte';
 
-  export let threshold = 0.1;
-  export let duration = 0.5;
-  export let delay = 0;
-  export let y = 20;
-  let className = '';
-  export { className as class };
-
-  let element: HTMLElement;
-
-  onMount(() => {
-    inView(element, () => {
-      animate(
-        element,
-        { opacity: [0, 1], transform: [`translateY(${y}px)`, 'translateY(0px)'] } as any,
-        { duration, delay, easing: 'ease-out' } as any
-      );
-    }, { amount: threshold });
-  });
+  let {
+    duration = 0.5,
+    delay = 0,
+    y = 20,
+    class: className = '',
+    children,
+  }: {
+    duration?: number;
+    delay?: number;
+    y?: number;
+    class?: string;
+    children: Snippet;
+  } = $props();
 </script>
 
-<div bind:this={element} class="opacity-0 {className}">
-  <slot />
+<div class="reveal {className}" style="--duration: {duration}s; --delay: {delay}s; --y: {y}px">
+  {@render children()}
 </div>
+
+<style>
+  .reveal {
+    animation: reveal var(--duration) ease-out var(--delay) both;
+  }
+
+  @keyframes reveal {
+    from {
+      opacity: 0;
+      transform: translateY(var(--y));
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reveal {
+      animation: none;
+    }
+  }
+</style>
