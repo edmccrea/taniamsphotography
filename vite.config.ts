@@ -1,13 +1,16 @@
-import { sveltekit } from "@sveltejs/kit/vite";
+import adapter from '@sveltejs/adapter-vercel';
+import { sveltekit } from '@sveltejs/kit/vite';
+import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
+import { defineConfig } from 'vite';
 
-/** @type {import('vite').UserConfig} */
-const config = {
-  plugins: [sveltekit()],
-  define: {
-    "import.meta.env.VERCEL_ANALYTICS_ID": JSON.stringify(
-      process.env.VERCEL_ANALYTICS_ID
-    ),
-  },
-};
-
-export default config;
+export default defineConfig({
+  plugins: [
+    sveltekit({
+      preprocess: vitePreprocess(),
+      adapter: adapter({ runtime: 'nodejs22.x' }),
+      paths: { origin: 'https://www.taniamccreasteele.com' },
+      compilerOptions: { experimental: { async: true } },
+      experimental: { remoteFunctions: true },
+    }),
+  ],
+});

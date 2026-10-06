@@ -1,5 +1,5 @@
 <script lang="ts">
-  export let text: any;
+  let { text }: { text: string | undefined } = $props();
 </script>
 
 <div class="text-block">

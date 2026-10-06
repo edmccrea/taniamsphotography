@@ -45,9 +45,13 @@
   }
 
   svg {
-    color: var(--color-gray-600);
     width: 16px;
     height: 16px;
+    transition: fill 180ms ease;
+  }
+
+  a:hover svg {
+    fill: var(--color-accent);
   }
 
   @media (min-width: 768px) {

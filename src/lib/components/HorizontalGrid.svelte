@@ -1,28 +1,23 @@
 <script lang="ts">
-  import CustomImage from '$lib/components/CustomImage.svelte';
-  import { lightbox } from "$lib/stores/lightbox";
+  import CustomImage from '#lib/components/CustomImage.svelte';
+  import { openLightbox } from '#lib/lightbox.svelte.js';
+  import type { Image } from '#lib/types.js';
 
-  export let images: App.Image[];
-
-  function openLightbox(index: number) {
-    lightbox.set({
-      open: true,
-      images,
-      currentImageIndex: index,
-    });
-  }
+  let { images, context = '' }: { images: Image[]; context?: string } = $props();
 </script>
 
-<div class="container">
+<div>
   <ul class="image-gallery">
     {#each images as image, index}
       <li class="image-item">
         <button
           class="w-full h-full p-0 border-none bg-transparent cursor-pointer"
-          on:click={() => openLightbox(index)}
-          on:keyup={(e) => e.key === 'Enter' && openLightbox(index)}
+          onclick={() => openLightbox(images, index, context)}
         >
-          <CustomImage data={image.responsiveImage} />
+          <CustomImage
+            data={image.responsiveImage}
+            sizes="(min-width: 768px) 50vw, calc(100vw - 32px)"
+          />
         </button>
       </li>
     {/each}
@@ -48,7 +43,7 @@
   }
 
   .image-gallery::after {
-    content: "";
+    content: '';
     flex-grow: 999;
   }
 </style>

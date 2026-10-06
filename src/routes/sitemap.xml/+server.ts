@@ -1,64 +1,46 @@
-import { gql, GraphQLClient } from 'graphql-request';
-import { DATO_API_KEY } from '$env/static/private';
+import { gql } from 'graphql-request';
+import { dato } from '#lib/server/graphql.js';
+
+export const prerender = true;
 
 export async function GET() {
   const site = 'https://www.taniamccreasteele.com';
   const staticPages = ['', '/about', '/gallery', '/shop', '/contact', '/blog'];
 
-  const query = gql`
+  const data = await dato<{
+    allGalleryCollections: { url: string }[];
+    allBlogPosts: { url: string }[];
+  }>(gql`
     {
-      allGalleryCollections {
+      allGalleryCollections(first: 100) {
         url
       }
-      allBlogPosts {
+      allBlogPosts(first: 100) {
         url
       }
     }
-  `;
+  `);
 
-  const graphQLClient = new GraphQLClient('https://graphql.datocms.com/', {
-    headers: {
-      'content-type': 'application/json',
-      authorization: `Bearer ${DATO_API_KEY}`,
-    },
-  });
-
-  const data: {
-    allGalleryCollections: { url: string }[];
-    allBlogPosts: { url: string }[];
-  } = await graphQLClient.request(query);
-
-  const galleryPages = data.allGalleryCollections.map(gallery => `/gallery/${gallery.url}`);
-
-  const blogPages = data.allBlogPosts.map(post => `/blog/${post.url}`);
-
-  const pages = [...staticPages, ...galleryPages, ...blogPages];
+  const pages = [
+    ...staticPages,
+    ...data.allGalleryCollections.map(gallery => `/gallery/${gallery.url}`),
+    ...data.allBlogPosts.map(post => `/blog/${post.url}`),
+  ];
 
   const sitemap = `<?xml version="1.0" encoding="UTF-8" ?>
-<urlset
-  xmlns="https://www.sitemaps.org/schemas/sitemap/0.9"
-  xmlns:xhtml="https://www.w3.org/1999/xhtml"
-  xmlns:mobile="https://www.google.com/schemas/sitemap-mobile/1.0"
-  xmlns:news="https://www.google.com/schemas/sitemap-news/0.9"
-  xmlns:image="https://www.google.com/schemas/sitemap-image/1.1"
-  xmlns:video="https://www.google.com/schemas/sitemap-video/1.1"
->
-  ${pages
-    .map(
-      page => `
-  <url>
+<urlset xmlns="https://www.sitemaps.org/schemas/sitemap/0.9">
+${pages
+  .map(
+    page => `  <url>
     <loc>${site}${page}</loc>
-    <changefreq>daily</changefreq>
+    <changefreq>weekly</changefreq>
     <priority>0.7</priority>
-  </url>
-  `,
-    )
-    .join('')}
+  </url>`,
+  )
+  .join('\n')}
 </urlset>`;
 
   return new Response(sitemap, {
-    headers: {
-      'Content-Type': 'application/xml',
-    },
+    headers: { 'Content-Type': 'application/xml' },
   });
 }

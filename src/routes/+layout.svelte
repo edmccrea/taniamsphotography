@@ -1,43 +1,42 @@
 <script lang="ts">
-  import { get } from 'svelte/store';
-  import { page } from '$app/stores';
-  import type { PageData } from './$types';
+  import { onMount } from 'svelte';
+  import { page } from '$app/state';
+  import { dev } from '$app/env';
   import '../app.css';
-  import { lightbox } from '$lib/stores/lightbox';
-  import Nav from '$lib/components/Nav.svelte';
-  import Lightbox from '$lib/components/Lightbox.svelte';
-  import Footer from '$lib/components/Footer.svelte';
-  import MobileNav from '$lib/components/MobileNav.svelte';
-  import type { Image } from '../types';
-  import { dev } from '$app/environment';
+  import { lightbox, closeLightbox } from '#lib/lightbox.svelte.js';
+  import Nav from '#lib/components/Nav.svelte';
+  import Footer from '#lib/components/Footer.svelte';
+  import MobileNav from '#lib/components/MobileNav.svelte';
+  import type { Snippet } from 'svelte';
 
-  let showLightbox = false;
-  let lightboxImageIndex = 0;
+  let { children }: { children: Snippet } = $props();
 
-  let lightboxImages: Image[] = [];
+  type LightboxComponent = typeof import('#lib/components/Lightbox.svelte').default;
+  let Lightbox = $state<LightboxComponent | null>(null);
 
-  function handleLightboxChange() {
-    const lightboxValue = get(lightbox);
-    if (lightboxValue.open) {
-      lightboxImageIndex = lightboxValue.currentImageIndex;
-      lightboxImages = lightboxValue.images;
-      showLightbox = true;
-    } else {
-      showLightbox = false;
-    }
+  async function loadLightbox() {
+    if (Lightbox) return;
+    Lightbox = (await import('#lib/components/Lightbox.svelte')).default;
   }
 
-  $: $lightbox, handleLightboxChange();
+  onMount(() => {
+    const idle = window.requestIdleCallback ?? ((cb: () => void) => setTimeout(cb, 500));
+    idle(() => void loadLightbox());
+  });
+
+  $effect(() => {
+    if (lightbox.open) void loadLightbox();
+  });
 </script>
 
 <svelte:head>
-  <link rel="canonical" href={$page.url.href} />
+  <link rel="canonical" href={page.url.href} />
   {@html `<script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "LocalBusiness",
       "name": "Tania McCrea Steele Photography",
-      "image": "https://www.taniamccreasteele.com/tms-site.jpg",
+      "image": "https://www.taniamccreasteele.com/og-image.jpg",
       "url": "https://www.taniamccreasteele.com",
       "telephone": "",
       "priceRange": "££",
@@ -65,22 +64,28 @@
   {/if}
 </svelte:head>
 
-<Lightbox bind:open={showLightbox} images={lightboxImages} currentImageIndex={lightboxImageIndex} />
+{#if Lightbox}
+  <Lightbox
+    open={lightbox.open}
+    images={lightbox.images}
+    currentImageIndex={lightbox.currentImageIndex}
+    context={lightbox.context}
+    onclose={closeLightbox}
+  />
+{/if}
 
-<div class="md:hidden">
-  <MobileNav />
-</div>
+<MobileNav />
 
-<aside class="hidden md:block fixed top-0 left-0 h-full">
+<aside class="hidden lg:block fixed top-0 left-0 h-full">
   <Nav />
 </aside>
 
-<main class="ml-0 flex-grow p-4 grid md:w-full md:ml-[343px] md:p-[40px_40px_40px_0]">
-  <div class="w-full h-full col-start-1 row-start-1">
-    <slot />
+<main class="ml-0 flex-grow min-w-0 p-4 grid lg:w-full lg:ml-[300px] lg:p-[40px_40px_40px_0]">
+  <div class="w-full h-full min-w-0 col-start-1 row-start-1">
+    {@render children()}
   </div>
 </main>
 
-<div class="w-full h-[80px] flex justify-center items-center md:hidden">
+<div class="w-full h-[80px] flex justify-center items-center lg:hidden">
   <Footer />
 </div>

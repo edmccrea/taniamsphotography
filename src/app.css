@@ -50,7 +50,7 @@ table {
 
 html,
 body {
-  background: #fff;
+  background: var(--color-paper);
 }
 
 /* prettier-ignore */
@@ -71,8 +71,19 @@ a {
 button {
   cursor: pointer;
   border: none;
-  outline: none;
   background: none;
+  font: inherit;
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+::selection {
+  background: var(--color-accent-soft);
 }
 
 @tailwind base;
@@ -110,6 +121,13 @@ button {
     --color-gray-800: #1f2937;
     --color-gray-900: #111827;
 
+    /* Brand */
+    --color-paper: #fbfaf7;
+    --color-accent: #5b6b4e;
+    --color-accent-strong: #46543b;
+    --color-accent-soft: #e9ece4;
+    --color-ink: #1f2420;
+
     /* black */
     --constrast: 0 0% 0%;
 
@@ -122,8 +140,8 @@ button {
     --shadow-card: 0px 2px 0px 1px rgba(0, 0, 0, 0.04);
     --shadow-date-field-focus: 0px 0px 0px 3px rgba(24, 24, 27, 0.17);
   }
-  
+
   body {
-    @apply min-h-screen flex flex-col md:flex-row;
+    @apply min-h-screen flex flex-col lg:flex-row;
   }
 }
